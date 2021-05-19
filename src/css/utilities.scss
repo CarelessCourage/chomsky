@@ -1,0 +1,99 @@
+@use "./color"as *;
+
+@mixin btn {
+    cursor: pointer;
+    color: $fg;
+    user-select: none;
+    transition: 0.2s ease-in-out;
+}
+
+@mixin centerAlignContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin neomorphism($spread: 10px, $blur: 20px, $light: 60%, $op: .4) {
+    background: linear-gradient(145deg, rgba(scale-color($bg, $lightness: $light), $op), rgba(scale-color($bg, $lightness: -70%), $op / 2));
+    box-shadow: $spread $spread $blur rgba(scale-color($bg, $lightness: $light * -1), $op),
+        $spread * -1 $spread * -1 $blur rgba(scale-color($bg, $lightness: $light), $op * 2),
+        inset $spread * -1 $spread * -1 $blur rgba(scale-color($bg, $lightness: $light * -1), $op),
+        inset $spread $spread $blur rgba(scale-color($bg, $lightness: $light), $op * 2);
+    transition: box-shadow .4s ease-in-out;
+}
+
+@mixin neomorphism-flat-top($spread: 10px, $blur: 20px, $light: 60%, $op: .4) {
+    background: linear-gradient(145deg, rgba(scale-color($bg, $lightness: $light), $op), rgba(scale-color($bg, $lightness: -70%), $op / 2));
+    box-shadow: $spread $spread $blur rgba(scale-color($bg, $lightness: $light * -1), $op),
+        $spread * -1 $spread * -1 $blur rgba(scale-color($bg, $lightness: $light), $op * 2);
+    transition: box-shadow .4s ease-in-out;
+}
+
+@mixin neomorphism-inset($spread: 10px, $blur: 20px, $light: 60%, $op: .4) {
+    background: linear-gradient(145deg, rgba(scale-color($bg, $lightness: $light), $op), rgba(scale-color($bg, $lightness: -70%), $op / 2));
+    box-shadow: inset $spread $spread $blur rgba(scale-color($bg, $lightness: $light * -1), $op),
+        inset $spread * -1 $spread * -1 $blur rgba(scale-color($bg, $lightness: $light), $op * 2);
+    transition: box-shadow .4s ease-in-out;
+}
+
+@mixin neomorphismBtn($spread: 10px, $blur: 20px, $light: 60%, $op: .4) {
+    @include btn;
+    @include neomorphism($spread: $spread, $blur: $blur, $light: $light, $op: $op);
+    background: linear-gradient(145deg,
+            rgba(scale-color($bg, $lightness: +100%), 1),
+            rgba(scale-color($bg, $lightness: -10%), 1));
+
+    &:hover {
+        @include neomorphism($spread: 10px, $blur: 30px);
+    }
+
+    &:active {
+        @include neomorphism($spread: 0px, $blur: 0px, $op: 0);
+        transition: 0.1s ease-in-out;
+    }
+}
+
+@mixin neomorphismBtn-flat-top($spread: 10px, $blur: 20px, $light: 60%, $op: .4) {
+    @include btn;
+    @include neomorphism-flat-top($spread: $spread, $blur: $blur, $light: $light, $op: $op);
+    background: linear-gradient(145deg,
+            rgba(scale-color($bg, $lightness: +100%), 1),
+            rgba(scale-color($bg, $lightness: -10%), 1));
+
+    &:hover {
+        @include neomorphism-flat-top($spread: 10px, $blur: 30px);
+    }
+
+    &:active {
+        @include neomorphism-flat-top($spread: 0px, $blur: 0px, $op: 0);
+        transition: 0.1s ease-in-out;
+    }
+}
+
+@mixin neomorphismBtn-inset($spread: 10px, $blur: 20px, $light: 60%, $op: .4) {
+    @include btn;
+    @include neomorphism-inset($spread: $spread, $blur: $blur, $light: $light, $op: $op);
+    background: linear-gradient(145deg,
+            rgba(scale-color($bg, $lightness: +100%), 1),
+            rgba(scale-color($bg, $lightness: -10%), 1));
+
+    &:hover {
+        @include neomorphism-inset($spread: 10px, $blur: 30px);
+    }
+
+    &:active {
+        @include neomorphism-inset($spread: 0px, $blur: 0px, $op: 0);
+        transition: 0.1s ease-in-out;
+    }
+}
+
+@mixin glassmorphism($tint: $bg, $shadow: $fg) {
+    background: linear-gradient(to right bottom,
+            rgba(scale-color($tint, $lightness: +70%), 0.7),
+            rgba(scale-color($tint, $lightness: -70%), .2));
+    box-shadow: 0 8px 32px 0 rgba($shadow, 0.37);
+    backdrop-filter: blur(9.5px);
+    -webkit-backdrop-filter: blur(9.5px);
+    border-radius: 10px;
+    border: 0.4px solid rgba(scale-color($tint, $lightness: +100%), 0.0);
+}
