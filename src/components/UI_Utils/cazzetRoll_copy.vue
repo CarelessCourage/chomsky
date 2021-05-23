@@ -180,6 +180,12 @@
         <circle class="cls-3" cx="110.45" cy="110.44" r="13.43" />
       </g>
     </svg>
+    <div class="debug" v-if="true">
+      <p>rSeconds: {{ rSeconds }}</p>
+      <p>angle: {{ orbit[0].angle }}</p>
+      <p>PY: {{ orbit[0].py }}</p>
+      <p>PX: {{ orbit[0].px }}</p>
+    </div>
   </div>
 </template>
 
@@ -191,7 +197,7 @@ export default {
   props: {
     play: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     radius: {
       type: Number,
@@ -238,7 +244,7 @@ export default {
     );
 
     //const _play = computed(() => props.play);
-    const play = ref(false);
+    const play = ref(true);
     const ref_svg = ref(null);
 
     let togglePlay = function () {
@@ -274,6 +280,13 @@ export default {
 
 <style scoped lang="scss">
 @use "@/css" as *;
+
+.debug {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background: $bg;
+}
 
 #neoAngle {
   --shadow: $fg;

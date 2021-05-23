@@ -8,6 +8,16 @@
     margin: 0px;
 }
 
+::-moz-selection { /* Code for Firefox */
+    color: $fg;
+    background: $flavor;
+  }
+  
+::selection {
+    color: $fg;
+    background: $flavor;
+}
+
 #app {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -35,7 +45,7 @@ p {
     letter-spacing: 0.01em;
 
     span {
-        color: $accent;
+        color: $flavor;
         font-weight: 900;
     }
 }

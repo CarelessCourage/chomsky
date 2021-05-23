@@ -198,7 +198,7 @@ export default defineComponent({
   props: {
     play: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     radius: {
       type: Number,

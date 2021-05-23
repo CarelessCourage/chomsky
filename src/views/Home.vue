@@ -1,6 +1,9 @@
 <template>
   <div class="home">
     <TestGround v-if="true" />
+    <div class="media">
+      <MediaPlayer />
+    </div>
     <div class="node">
       <p>lorem ipsum dolor sit amet, consectetur</p>
     </div>
@@ -25,15 +28,18 @@
 import { defineComponent } from "vue";
 import TestGround from "@/components/testGround.vue";
 import cazzetRoll from "@/components/UI_Utils/cazzetRoll_copy.vue";
+import MediaPlayer from "../components/mediaPlayer.vue";
 
 export default defineComponent({
   name: "Home",
   components: {
     TestGround,
     cazzetRoll,
+    MediaPlayer
   },
 });
 </script>
+
 
 <style lang="scss">
 @use "@/css/" as *;
@@ -46,11 +52,43 @@ export default defineComponent({
 }
 
 .node {
-  //@include neomorphism($spread: 4px, $blur: 7px);
+  @include neomorphism($spread: 4px, $blur: 7px);
   background: $bg;
   padding: $margin;
   border: solid 2px $fg;
   border-radius: 1em;
+}
+
+.media {
+  @include neomorphism($spread: 4px, $blur: 7px);
+  --plyr-color-main: #{$flavor};
+  --plyr-video-background: #{$bg};
+  --plyr-badge-text-color: #{$flavor};
+  --plyr-video-control-color: #{$bg};
+  --plyr-video-control-color-hover: #{$bg};
+  --plyr-menu-background: #{$bg};
+  --plyr-menu-color: #{$fg};
+  --plyr-progress-loading-size: 50px;
+  --plyr-video-progress-buffered-background: #{$mg};
+  --plyr-range-thumb-background: #{$flavor};
+  --plyr-range-thumb-height: 0px;
+  --plyr-range-thumb-shadow: none;
+  --plyr-range-track-height: 5px;
+  --plyr-video-range-track-background: #{$mg};
+  --plyr-tooltip-background: #{$bg};
+  --plyr-tooltip-color: #{$fg};
+  --plyr-tooltip-arrow-size: 6px;
+
+  padding: 0px;
+  overflow: hidden;
+  background: $bg;
+  border: solid 2px $fg;
+  border-radius: 1em;
+
+  & > * {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .node.audio {
@@ -72,13 +110,12 @@ export default defineComponent({
 .node.audio.featured {
   margin-top: $margin * 2;
   grid-template-columns: 2fr 4fr 3fr;
-  border-right: none;
-  border-top-right-radius: 0px;
   img {
     @include neomorphism($spread: 8px, $blur: 12px);
     background: $bg;
     border-radius: 10em;
     height: 150%;
+    width: 100%;
     margin-top: -50%;
     border: solid 1px $fg;
   }
