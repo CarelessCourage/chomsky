@@ -2,7 +2,20 @@
   <div class="page-container">
     <router-view />
   </div>
+  <mediaControls />
 </template>
+
+<script>
+import { defineComponent } from "vue";
+import mediaControls from "@/components/mediaControls.vue";
+
+export default defineComponent({
+  name: "app",
+  components: {
+    mediaControls,
+  },
+});
+</script>
 
 <style lang="scss">
 @use "@/css/" as *;
