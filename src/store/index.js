@@ -1,12 +1,8 @@
 import { createStore } from 'vuex'
+import media from "./media.js"
 
 export default createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
+    media: media
   }
 })

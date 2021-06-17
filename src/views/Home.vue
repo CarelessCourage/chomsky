@@ -10,11 +10,11 @@
     <div class="node">
       <p>lorem ipsum dolor sit amet, consectetur</p>
     </div>
-    <div class="node audio">
+    <div class="node audio" v-if="false">
       <cazzetRoll />
       <div><p>lorem ipsum dolor sit amet, consectet</p></div>
     </div>
-    <div class="node audio featured">
+    <div class="node audio featured" v-if="false">
       <div class="cazzet">
         <cazzetRoll />
       </div>
