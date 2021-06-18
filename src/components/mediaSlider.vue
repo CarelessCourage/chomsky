@@ -1,6 +1,7 @@
 <template>
   <div
     id="mediaSlider"
+    class="debug"
     @mousemove="inputHovered($event)"
     @mouseup="inputClicked($event)"
   >
@@ -71,10 +72,14 @@ export default {
 <style lang="scss" scoped>
 @use "@/css" as *;
 #mediaSlider {
-  opacity: 1;
+  opacity: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
 }
 
-.debug {
+#mediaSlider.debug {
   opacity: 1;
 }
 
@@ -104,7 +109,9 @@ input[type=range]::-moz-range-thumb {
   border: 1px solid #000000;
   border-radius: 3px;
   background: pink;
+  width: 1px;
   opacity: .5;
+  opacity: 0;
 }
 
 input[type=range].present::-moz-range-thumb {
@@ -112,7 +119,7 @@ input[type=range].present::-moz-range-thumb {
   border-radius: 3px;
   background: blue;
   cursor: pointer;
-  opacity: 1;
+  opacity: 0;
 }
 
 input[type=range].future::-moz-range-thumb {
@@ -120,5 +127,6 @@ input[type=range].future::-moz-range-thumb {
   border-radius: 3px;
   background: yellow;
   cursor: pointer;
+  opacity: 1;
 }
 </style>

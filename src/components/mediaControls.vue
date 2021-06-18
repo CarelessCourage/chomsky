@@ -10,11 +10,14 @@
       </div>
     </div>
     <div class="bar time" @click="toggle()">
+
+      <div class="timeMarker" :style="'--marker: ' + $store.state.media.marker + '%'">10:00</div>
+
       <mediaSlider :debug="false"/>
       <div class="progress" :style="'--present: ' + $store.state.media.present + '%'">
         <SvgPlay :play="play"/>
       </div>
-      <div class="buffer" :style="'--future: ' + $store.state.media.future + '%'"></div>
+      <div class="buffer"></div>
     </div>
   </div>
 </template>
@@ -120,6 +123,23 @@ export default {
 
   &.time {
     background: $fg;
+    .timeMarker {
+      background: red;
+      width: max-content;
+      left: var(--marker);
+
+      padding: 0px 25px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 1em;
+
+      height: 1.5em;
+      position: absolute;
+      z-index: 20;
+      transform: translate(0%, -100%);
+    }
   }
   .progress {
     @extend %level;
