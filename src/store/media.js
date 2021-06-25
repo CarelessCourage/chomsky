@@ -1,14 +1,26 @@
 
 let media = {
   state: {
-    future: 50,
-    present: 0,
-    marker: 0,
-    volume: 50
+    volume: 50,
+    timecode: 0,
+    duration: 0,
+    timeui: {
+      future: 0,
+      present: 0,
+      marker: 100,
+    },
+    enact: {
+      hold: 0,
+      click: false,
+      marker: true
+    }
   },
   mutations: {
-    change(state, payload) {
-      state[payload.time] = payload.value
+    timeui(state, payload) {
+      state.timeui[payload.time] = payload.value
+    },
+    interact(state, payload) {
+      state.enact[payload.time] = payload.value
     }
   },
 }

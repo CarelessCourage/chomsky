@@ -4,17 +4,15 @@
     <div class="bar volume">
       <div class="max">
         <input type="range" min="0" max="100" v-model="$store.state.media.volume">
-        <div class="level">
+        <div class="level" :style="`--volume: ${$store.state.media.volume}%`">
           <SvgVolume/>
         </div>
       </div>
     </div>
     <div class="bar time" @click="toggle()">
-
-      <div class="timeMarker" :style="'--marker: ' + $store.state.media.marker + '%'">10:00</div>
-
-      <mediaSlider :debug="false"/>
-      <div class="progress" :style="'--present: ' + $store.state.media.present + '%'">
+      <mediaPsuedo />
+      <mediaSlider />
+      <div class="progress" :style="`--present: ${$store.state.media.timeui.present}%`">
         <SvgPlay :play="play"/>
       </div>
       <div class="buffer"></div>
@@ -26,6 +24,7 @@
 import SvgVolume from "@/assets/svg-vue/volume"
 import SvgPlay from "@/assets/svg-vue/play"
 import mediaSlider from "@/components/mediaSlider"
+import mediaPsuedo from "@/components/mediaPsuedo"
 
 import { ref } from 'vue'
 
@@ -34,13 +33,24 @@ export default {
   components: {
     SvgVolume,
     SvgPlay,
-    mediaSlider
+    mediaSlider,
+    mediaPsuedo
+  },
+  computed: {
+    rad() {
+      let x = 1
+      const fut = this.$store.state.media.timeui.future
+      const pre = this.$store.state.media.timeui.present
+      if(fut > pre) x = 0
+      return x
+    }
   },
   setup() {
-    const play = ref(true);
+    const play = ref(true)
     function toggle() {
-      play.value = !play.value;
+      play.value = !play.value
     }
+
     return { play, toggle }
   },
 };
@@ -50,6 +60,8 @@ export default {
 @use "@/css" as *;
 .mediaControls {
   --radius: 2em;
+  --modRad: calc(v-bind('rad') * 1em);
+
   width: 70vw;
   position: fixed;
   bottom: 20px;
@@ -78,7 +90,7 @@ export default {
   box-shadow: 6px 0px 4px -3px rgba($fg, 0.1);
 
   will-change: width;
-  transition: width 0.01s ease-in-out, background-color .6s ease-in-out;
+  transition: width 0.4s ease-in-out, background-color .6s ease-in-out;
   
   .svg {
     width: 0.7em;
@@ -99,10 +111,17 @@ export default {
   height: 2em;
   border-radius: 0em var(--radius) var(--radius) 0em;
   position: relative;
-  cursor: pointer;
   //@extend %hoverComet;
   &.volume {
     height: 1.5em;
+    input {
+      opacity: .0;
+    }
+    .level {
+      width: var(--volume);
+      will-change: width;
+      transition: width .01s ease-in-out;
+    }
   }
   .max {
     @extend %level;
@@ -123,23 +142,6 @@ export default {
 
   &.time {
     background: $fg;
-    .timeMarker {
-      background: red;
-      width: max-content;
-      left: var(--marker);
-
-      padding: 0px 25px;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 1em;
-
-      height: 1.5em;
-      position: absolute;
-      z-index: 20;
-      transform: translate(0%, -100%);
-    }
   }
   .progress {
     @extend %level;
@@ -147,6 +149,11 @@ export default {
     z-index: 5;
     width: var(--present);
     padding-right: 0.7em;
+
+    border-radius: 0em var(--modRad) var(--modRad) 0em;
+
+    will-change: border-radius, width;
+    transition: border-radius .2s ease-in-out, width 0.4s ease-in-out, background-color .6s ease-in-out;
   }
   .buffer {
     @extend %level;

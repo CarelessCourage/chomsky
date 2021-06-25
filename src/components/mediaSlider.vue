@@ -2,20 +2,22 @@
   <div
     id="mediaSlider"
     class="debug"
+    @mousedown="clickStart($event)"
     @mousemove="inputHovered($event)"
-    @mouseup="inputClicked($event)"
+    @mouseup="clickDone($event)"
+    v-holdpress="clickHold"
+    v-clickout="markerOff"
   >
-    <input class="marker" type="range" min="0" max="100" :value="$store.state.media.marker">
-    <input class="present" type="range" min="0" max="100" :value="$store.state.media.present">
-    <input class="future" type="range" min="0" max="100" :value="$store.state.media.future">
+    <input class="marker" type="range" min="0" max="100" :value="$store.state.media.timeui.marker">
+    <input class="present" type="range" min="0" max="100" :value="$store.state.media.timeui.present">
+    <input class="future" type="range" min="0" max="100" :value="$store.state.media.timeui.future">
   </div>
 </template>
 
 <script>
-import { percentConverter } from '@/utils/utils.js'
-
-import { ref } from 'vue'
+import { numberToPercent } from '@/utils/utils.js'
 import { useStore } from 'vuex'
+import _ from 'lodash'
 
 export default {
   name: "mediaSlider",
@@ -23,48 +25,65 @@ export default {
     debug: Boolean,
   },
   setup() {
-    const proximity = 2
+    const proximity = 1
     const store = useStore()
 
-    let clickDown = ref(false)
+    function clickStart() {
+      store.commit('interact', { time: "click", value: true })
+      store.commit('interact', { time: "marker", value: true })
+    }
 
-    function inputClicked(e) {
-      clickDown.value = !clickDown.value
+    function markerOff() {
+      console.log("markerOff")
+      store.commit('interact', { time: "marker", value: false })
+    }
 
-      let fut = store.state.media.future
-      let pre = store.state.media.present
+    function clickDone(e) {
+      let fut = store.state.media.timeui.future
+      let pre = store.state.media.timeui.present
    
       let perc = barPercentage(e)
       let onPresent = Math.abs(pre - perc) < proximity
       let onFuture = Math.abs(fut - perc) < proximity
 
-      if(onFuture) pre = perc
       if(!onPresent && !onFuture) fut = perc
+      if(onFuture) {
+        pre = perc
+        markerOff()
+      }
 
-      store.commit('change', {
-        time: "present",
-        value: pre
-      })
-
-      store.commit('change', {
-        time: "future",
-        value: fut
-      })
+      store.commit('timeui', { time: "present", value: pre })
+      store.commit('timeui', { time: "future", value: fut })
+      store.commit('interact', { time: "hold", value: 0 })
+      store.commit('interact', { time: "click", value: false })
     }
 
     function inputHovered(e) {
-      store.commit('change', {
-        time: "marker",
+      let time = "marker"
+      if(store.state.media.enact.hold > 0) time = "future"
+
+      store.commit('timeui', {
+        time: time,
         value: barPercentage(e)
+      })
+    }
+
+    function clickHold() {
+      let newValue = store.state.media.enact.hold + 1
+      store.commit('interact', {
+        time: "hold",
+        value: newValue
       })
     }
 
     function barPercentage(e) {
       const inputWidth = e.target.clientWidth
-      return percentConverter(e.offsetX, inputWidth, true)
+      let perc = numberToPercent(e.offsetX, inputWidth)
+      perc = _.clamp(perc, 0, 100)
+      return perc
     }
 
-    return {inputHovered, inputClicked}
+    return {inputHovered, clickStart, clickHold, clickDone, markerOff}
   },
 };
 </script>
@@ -88,6 +107,7 @@ input {
   z-index: 10;
   width: 100%;
   height: 100%;
+  cursor: pointer;
 }
 
 input[type=range] {
@@ -127,6 +147,6 @@ input[type=range].future::-moz-range-thumb {
   border-radius: 3px;
   background: yellow;
   cursor: pointer;
-  opacity: 1;
+  opacity: 0;
 }
 </style>
