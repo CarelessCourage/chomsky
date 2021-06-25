@@ -33,8 +33,8 @@ export default {
       store.commit('interact', { time: "marker", value: true })
     }
 
-    function markerOff() {
-      console.log("markerOff")
+    function markerOff(e) {
+      console.log("markerOff: ", e)
       store.commit('interact', { time: "marker", value: false })
     }
 
