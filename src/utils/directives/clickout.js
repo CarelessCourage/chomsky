@@ -16,8 +16,6 @@ exports = module.exports = {
 
     // Define Handler and cache it on the element
     function handler(e) {
-      console.log("some");
-
       if(el.contains(e.target)) return
       el.__vueClickOutside__.callback(e)
     }

@@ -79,7 +79,7 @@ export default defineComponent({
     watch(hold, (newValue) => {
       //Update player when present changes
       //newValue > 0 ? 
-      //  playerTime(store.state.media.timeui.future) : 
+      //  playerTime(store.state.media.timeui.future.y) : 
       //  playerTime(store.state.media.timeui.present)
       console.log(newValue)
     })

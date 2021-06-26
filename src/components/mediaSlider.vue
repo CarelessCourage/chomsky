@@ -6,11 +6,10 @@
     @mousemove="inputHovered($event)"
     @mouseup="clickDone($event)"
     v-holdpress="clickHold"
-    v-clickout="markerOff"
   >
     <input class="marker" type="range" min="0" max="100" :value="$store.state.media.timeui.marker">
     <input class="present" type="range" min="0" max="100" :value="$store.state.media.timeui.present">
-    <input class="future" type="range" min="0" max="100" :value="$store.state.media.timeui.future">
+    <input class="future" type="range" min="0" max="100" :value="$store.state.media.timeui.future.y">
   </div>
 </template>
 
@@ -28,18 +27,37 @@ export default {
     const proximity = 1
     const store = useStore()
 
-    function clickStart() {
-      store.commit('interact', { time: "click", value: true })
-      store.commit('interact', { time: "marker", value: true })
+    function storeClick(e) {
+      store.commit('interact', { time: "click", value: e })
     }
 
-    function markerOff(e) {
-      console.log("markerOff: ", e)
-      store.commit('interact', { time: "marker", value: false })
+    function storeHold(e) {
+      store.commit('interact', { time: "hold", value: e })
+    }
+
+    function storeMarker(e) {
+      store.commit('interact', { time: "marker", value: e })
+    }
+
+    function storeFuture(e) {
+      store.commit('future', { time: "y", value: e })
+    }
+
+    function storePresent(e) {
+      store.commit('timeui', { time: "present", value: e })
+    }
+
+    function clickStart() {
+      storeClick(true)
+      storeMarker(true)
+    }
+
+    function markerOff() {
+      storeMarker(false)
     }
 
     function clickDone(e) {
-      let fut = store.state.media.timeui.future
+      let fut = store.state.media.timeui.future.y
       let pre = store.state.media.timeui.present
    
       let perc = barPercentage(e)
@@ -52,28 +70,25 @@ export default {
         markerOff()
       }
 
-      store.commit('timeui', { time: "present", value: pre })
-      store.commit('timeui', { time: "future", value: fut })
-      store.commit('interact', { time: "hold", value: 0 })
-      store.commit('interact', { time: "click", value: false })
+      //Send time info
+      storePresent(pre)
+      storeFuture(fut)
+
+      //Send enact info
+      storeHold(0)
+      storeClick(false)
     }
 
     function inputHovered(e) {
-      let time = "marker"
-      if(store.state.media.enact.hold > 0) time = "future"
-
-      store.commit('timeui', {
-        time: time,
-        value: barPercentage(e)
-      })
+      let value = barPercentage(e)
+      store.state.media.enact.hold > 0 ?
+        storeFuture(value) : 
+        storeMarker(value)  
     }
 
     function clickHold() {
       let newValue = store.state.media.enact.hold + 1
-      store.commit('interact', {
-        time: "hold",
-        value: newValue
-      })
+      storeHold(newValue)
     }
 
     function barPercentage(e) {
@@ -83,7 +98,13 @@ export default {
       return perc
     }
 
-    return {inputHovered, clickStart, clickHold, clickDone, markerOff}
+    return {
+      inputHovered, 
+      clickStart, 
+      clickHold, 
+      clickDone, 
+      markerOff
+    }
   },
 };
 </script>

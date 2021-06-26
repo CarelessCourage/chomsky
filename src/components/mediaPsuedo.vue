@@ -1,7 +1,7 @@
 <template>
   <div class="psuedoContainer">
     <div class="timeMarker" v-if="false" :style="'--marker: ' + $store.state.media.time.marker + '%'"><p>10:00</p></div>
-    <div class="timeSpread" v-if="$store.state.media.enact.marker">
+    <div class="timeSpread" v-if="$store.state.media.enact.clip">
       <p id="duration" v-if="cSpread.spread > (minimum / 3)">10:22</p>
     </div>
   </div>
@@ -11,16 +11,19 @@
 export default {
   name: "mediaPsuedo",
   computed: {
-    cSpread() {
-      let one = this.$store.state.media.timeui.future
-      let two = this.$store.state.media.timeui.present
-
-      let spread = Math.abs(one - two)
+    spread() {
+      let x = this.$store.state.media.timeui.future.x
+      let y = this.$store.state.media.timeui.future.y
       
-      let min = Math.min(one, two)
-      min = Math.max(0, min)
+      let present = this.$store.state.media.timeui.present
+      let clip = this.$store.state.media.enact.clip
+      if(clip) x = present
 
-      return { spread, min }
+      let lowest = Math.min(x, y)
+      let highest = Math.max(x, y)
+      let width = Math.abs(highest - lowest)
+
+      return { width, lowest }
     },
     transition() {
       let time = 0.4
@@ -53,12 +56,12 @@ export default {
 
 .timeSpread {
   --time: calc(v-bind('transition') * 1s);
-  width: calc(v-bind('cSpread.spread') * 1%);
+  width: calc(v-bind('spread.width') * 1%);
   height: 100%;
 
   position: relative;
   bottom: 0px;
-  left: calc(v-bind('cSpread.min') * 1%);
+  left: calc(v-bind('spread.lowest') * 1%);
 
   will-change: 
     width, 

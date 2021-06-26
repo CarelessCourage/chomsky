@@ -39,7 +39,7 @@ export default {
   computed: {
     rad() {
       let x = 1
-      const fut = this.$store.state.media.timeui.future
+      const fut = this.$store.state.media.timeui.future.y
       const pre = this.$store.state.media.timeui.present
       if(fut > pre) x = 0
       return x
