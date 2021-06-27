@@ -10,10 +10,12 @@
     <input class="marker" type="range" min="0" max="100" :value="$store.state.media.timeui.marker">
     <input class="present" type="range" min="0" max="100" :value="$store.state.media.timeui.present">
     <input class="future" type="range" min="0" max="100" :value="$store.state.media.timeui.future.y">
+    <input class="future" type="range" min="0" max="100" :value="$store.state.media.timeui.future.x">
   </div>
 </template>
 
 <script>
+import useQickStore from './shortStore.js'
 import { numberToPercent } from '@/utils/utils.js'
 import { useStore } from 'vuex'
 import _ from 'lodash'
@@ -26,34 +28,12 @@ export default {
   setup() {
     const proximity = 1
     const store = useStore()
-
-    function storeClick(e) {
-      store.commit('interact', { time: "click", value: e })
-    }
-
-    function storeHold(e) {
-      store.commit('interact', { time: "hold", value: e })
-    }
-
-    function storeMarker(e) {
-      store.commit('interact', { time: "marker", value: e })
-    }
-
-    function storeFuture(e) {
-      store.commit('future', { time: "y", value: e })
-    }
-
-    function storePresent(e) {
-      store.commit('timeui', { time: "present", value: e })
-    }
+    let qs = useQickStore()
 
     function clickStart() {
-      storeClick(true)
-      storeMarker(true)
-    }
-
-    function markerOff() {
-      storeMarker(false)
+      qs.click(true)
+      qs.marker(true)
+      qs.clip(true)
     }
 
     function clickDone(e) {
@@ -67,28 +47,30 @@ export default {
       if(!onPresent && !onFuture) fut = perc
       if(onFuture) {
         pre = perc
-        markerOff()
+        qs.marker(false)
+        qs.clip(false)
       }
 
       //Send time info
-      storePresent(pre)
-      storeFuture(fut)
+      qs.present(pre)
+      qs.futureX(pre)
+      qs.futureY(fut)
 
-      //Send enact info
-      storeHold(0)
-      storeClick(false)
+      //Reset enact info
+      qs.hold(0)
+      qs.click(false)
     }
 
     function inputHovered(e) {
       let value = barPercentage(e)
       store.state.media.enact.hold > 0 ?
-        storeFuture(value) : 
-        storeMarker(value)  
+        qs.futureY(value) : 
+        qs.marker(value)  
     }
 
     function clickHold() {
       let newValue = store.state.media.enact.hold + 1
-      storeHold(newValue)
+      qs.hold(newValue)
     }
 
     function barPercentage(e) {
@@ -102,8 +84,7 @@ export default {
       inputHovered, 
       clickStart, 
       clickHold, 
-      clickDone, 
-      markerOff
+      clickDone,
     }
   },
 };

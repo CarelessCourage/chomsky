@@ -17,7 +17,7 @@ let media = {
     enact: {
       hold: 0,
       click: false,
-      clip: true
+      clip: false
     }
   },
   mutations: {

@@ -1,8 +1,10 @@
 <template>
   <div class="psuedoContainer">
     <div class="timeMarker" v-if="false" :style="'--marker: ' + $store.state.media.time.marker + '%'"><p>10:00</p></div>
-    <div class="timeSpread" v-if="$store.state.media.enact.clip">
-      <p id="duration" v-if="cSpread.spread > (minimum / 3)">10:22</p>
+    <div class="timeSpread">
+      <div class="rightTab"></div>
+      <p id="duration" v-if="spread.width > (minimum / 3)">10:22</p>
+      <div class="leftTab"></div>
     </div>
   </div>
 </template>
@@ -17,7 +19,7 @@ export default {
       
       let present = this.$store.state.media.timeui.present
       let clip = this.$store.state.media.enact.clip
-      if(clip) x = present
+      if(!clip) x = present
 
       let lowest = Math.min(x, y)
       let highest = Math.max(x, y)
@@ -73,6 +75,23 @@ export default {
   display: flex;
   justify-content: center;
   align-content: center;
+
+  .rightTab, 
+  .leftTab {
+    height: 100%;
+    width: 1em;
+    background: blue;
+    position: absolute;
+    top: 0px;
+  }
+
+  .leftTab {
+    left: 0px;
+  }
+
+  .rightTab {
+    right: 0px;
+  }
 
   &:after {
     content: "";
