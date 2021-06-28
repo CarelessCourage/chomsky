@@ -53,7 +53,7 @@ export default {
   z-index: 20;
   bottom: 0px;
 
-  pointer-events: none;
+  //pointer-events: none;
 }
 
 .timeSpread {
@@ -80,9 +80,16 @@ export default {
   .leftTab {
     height: 100%;
     width: 1em;
+    max-width: 50%;
     background: blue;
     position: absolute;
     top: 0px;
+    z-index: 10;
+    transition: .4s ease-in-out;
+    &:hover {
+      opacity: .5;
+      width: 3em;
+    }
   }
 
   .leftTab {

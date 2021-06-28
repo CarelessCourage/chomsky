@@ -1,7 +1,7 @@
 <template>
   <div
     id="mediaSlider"
-    class="debug"
+    :class="{debug: debug}"
     @mousedown="clickStart($event)"
     @mousemove="inputHovered($event)"
     @mouseup="clickDone($event)"
@@ -23,7 +23,10 @@ import _ from 'lodash'
 export default {
   name: "mediaSlider",
   props: {
-    debug: Boolean,
+    debug: {
+      type: Boolean,
+      default: true
+    },
   },
   setup() {
     const proximity = 1
@@ -93,15 +96,16 @@ export default {
 <style lang="scss" scoped>
 @use "@/css" as *;
 #mediaSlider {
-  opacity: 0;
+  --opacity: 0;
+  opacity: var(--opacity);
   position: absolute;
   height: 100%;
   width: 100%;
-  z-index: 10;
+  z-index: 500;
 }
 
 #mediaSlider.debug {
-  opacity: 1;
+  --opacity: 1;
 }
 
 input {
@@ -131,17 +135,17 @@ input[type=range]::-moz-range-thumb {
   border: 1px solid #000000;
   border-radius: 3px;
   background: pink;
-  width: 1px;
+  width: 5px;
   opacity: .5;
-  opacity: 0;
+  opacity: var(--opacity);
 }
 
 input[type=range].present::-moz-range-thumb {
   border: 1px solid #000000;
   border-radius: 3px;
-  background: blue;
+  background: purple;
   cursor: pointer;
-  opacity: 0;
+  opacity: var(--opacity);
 }
 
 input[type=range].future::-moz-range-thumb {
@@ -149,6 +153,6 @@ input[type=range].future::-moz-range-thumb {
   border-radius: 3px;
   background: yellow;
   cursor: pointer;
-  opacity: 0;
+  opacity: var(--opacity);
 }
 </style>
