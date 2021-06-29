@@ -28,7 +28,7 @@
 import { defineComponent } from "vue";
 import TestGround from "@/components/testGround.vue";
 import cazzetRoll from "@/components/UI_Utils/cazzetRoll_copy.vue";
-import MediaPlayer from "../components/mediaPlayer.vue";
+import MediaPlayer from "../components/media/mediaPlayer.vue";
 
 export default defineComponent({
   name: "Home",

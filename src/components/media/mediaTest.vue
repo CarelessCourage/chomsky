@@ -2,13 +2,11 @@
   <div 
     class="timebar"
     ref="timebar"
-    @mousedown="clickStart($event)"
-    @mousemove="inputHovered($event)"
-    @mouseleave="clickDone($event)"
-    @mouseup="clickDone($event)"
+    @mousedown="clickStart()"
+    v-holdpress="clickHold"
     :style="'--transition: ' + transition + 's'"
   >
-    <div class="at" :style="'--y: ' + y + '%'">
+    <div class="at" :style="'--y: ' + timey + '%'">
       <div class="handle left"></div>
       <div class="handle right"></div>
     </div>
@@ -16,62 +14,51 @@
 </template>
 
 <script>
-import useQickStore from './shortStore.js'
-import { ref, computed } from 'vue'
-
-import { numberToPercent } from '@/utils/utils.js'
-import _ from 'lodash'
+import { ref, computed, } from 'vue'
+import barHandler from './utils/index.js'
 
 export default {
   name: "mediaTest",
   setup() {
-    //const proximity = 1
-    let qs = useQickStore()
-    let y = ref(0)
     let hover = ref(0)
+    let hold = ref(0)
     let click = ref(false)
 
-    let transition = computed(() => {
-      //doesnt work
-      return click.value ? 0.01 : 0.4
-    })
+    let timebar = ref(null)
+    let {
+      timey, 
+      mouseWatch, 
+      barPercentage
+    } = barHandler(timebar, clickDone())
 
-    function clickStart(e) {
-      y.value = barPercentage(e)
+    function clickStart() {
+      timey.value = barPercentage(timebar)
       click.value = true
+      mouseWatch.resume()
     }
 
     function clickDone() {
+      hold.value = 0
       click.value = false
-      qs.hold(0)
+      mouseWatch.pause()
     }
 
-    function inputHovered(e) {
-      let hoverPerc = barPercentage(e)
-      hover.value = hoverPerc
-      if(click.value) y.value = hoverPerc
+    function clickHold() {
+      hold.value++
     }
 
-    let timebar = ref(null);
-
-    function barPercentage(e) {
-      const inputWidth = timebar.value.clientWidth
-      let client = timebar.value.getBoundingClientRect()
-      let x = e.clientX - client.left
-      
-      let perc = numberToPercent(x, inputWidth)
-      perc = _.clamp(perc, 0, 100)
-      return perc
-    }
+    let transition = computed(() => {
+      return hold.value > 1 ? 0.01 : 0.4
+    })
 
     return {
-      inputHovered, 
       clickStart, 
       clickDone,
-      timebar,
-      y,
+      clickHold,
       hover,
-      transition
+      timebar,
+      transition,
+      timey,
     }
   }
 };

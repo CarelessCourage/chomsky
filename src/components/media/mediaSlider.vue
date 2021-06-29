@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import useQickStore from './shortStore.js'
+import useQickStore from './utils/shortStore.js'
 import { numberToPercent } from '@/utils/utils.js'
 import { useStore } from 'vuex'
 import _ from 'lodash'
