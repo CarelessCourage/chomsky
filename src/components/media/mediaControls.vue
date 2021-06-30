@@ -25,9 +25,9 @@
 <script>
 import SvgVolume from "@/assets/svg-vue/volume"
 import SvgPlay from "@/assets/svg-vue/play"
-import mediaSlider from "@/components/mediaSlider"
-import mediaPsuedo from "@/components/mediaPsuedo"
-import mediaTest from "@/components/mediaTest"
+import mediaSlider from "@/components/media/mediaSlider"
+import mediaPsuedo from "@/components/media/mediaPsuedo"
+import mediaTest from "@/components/media/mediaTest"
 
 import { ref } from 'vue'
 

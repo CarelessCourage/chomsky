@@ -1,12 +1,11 @@
 <template>
   <div 
-    class="timebar"
-    ref="timebar"
+    class="timebar" ref="timebar"
     @mousedown="clickStart()"
     v-holdpress="clickHold"
-    :style="'--transition: ' + transition + 's'"
+    :style="transitionCSS"
   >
-    <div class="at" :style="'--y: ' + timey + '%'">
+    <div class="at" :style="formatedCSS">
       <div class="handle left"></div>
       <div class="handle right"></div>
     </div>
@@ -14,51 +13,50 @@
 </template>
 
 <script>
-import { ref, computed, } from 'vue'
+import { ref, computed } from 'vue'
+import { useCssVar } from '@vueuse/core'
 import barHandler from './utils/index.js'
 
 export default {
   name: "mediaTest",
   setup() {
-    let hover = ref(0)
     let hold = ref(0)
     let click = ref(false)
 
     let timebar = ref(null)
-    let {
-      timey, 
-      mouseWatch, 
-      barPercentage
-    } = barHandler(timebar, clickDone())
+    let { timey, barPercentage } = barHandler(timebar, click, () => clickDone())
 
     function clickStart() {
       timey.value = barPercentage(timebar)
       click.value = true
-      mouseWatch.resume()
     }
 
     function clickDone() {
       hold.value = 0
       click.value = false
-      mouseWatch.pause()
     }
 
     function clickHold() {
       hold.value++
     }
 
-    let transition = computed(() => {
-      return hold.value > 1 ? 0.01 : 0.4
+    const transition = useCssVar('--color', el)
+
+    let transitionCSS = computed(() => {
+      let value = hold.value > 1 ? 0.01 : 0.4
+      return '--transition: ' + value + 's'
+    })
+
+    let formatedCSS = computed(() => {
+      return '--y: ' + timey + '%'
     })
 
     return {
-      clickStart, 
-      clickDone,
+      clickStart,
       clickHold,
-      hover,
       timebar,
-      transition,
-      timey,
+      transitionCSS,
+      formatedCSS,
     }
   }
 };
