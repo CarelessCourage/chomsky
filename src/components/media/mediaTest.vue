@@ -1,11 +1,10 @@
 <template>
-  <div 
+  <div
     class="timebar" ref="timebar"
     @mousedown="clickStart()"
-    v-holdpress="clickHold"
-    :style="transitionCSS"
+    v-holdpress="() => hold++"
   >
-    <div class="at" :style="formatedCSS">
+    <div class="at">
       <div class="handle left"></div>
       <div class="handle right"></div>
     </div>
@@ -13,8 +12,10 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
-import { useCssVar } from '@vueuse/core'
+import { ref, watch } from 'vue'
+//import _ from 'lodash'
+
+import { cssVariable } from '@/utils/utils.js'
 import barHandler from './utils/index.js'
 
 export default {
@@ -23,11 +24,28 @@ export default {
     let hold = ref(0)
     let click = ref(false)
 
+    let barLeft = ref(0)
+    let barRight = ref(0)
+
+    let shrink = ref(false)
+
     let timebar = ref(null)
-    let { timey, barPercentage } = barHandler(timebar, click, () => clickDone())
+    let { holdMousePos, barPercentage } = barHandler(timebar, click, () => clickDone())
+    watch(holdMousePos, (newValue) => {
+      shrink.value ?
+        barLeft.value = newValue : 
+        barRight.value = newValue 
+    })
 
     function clickStart() {
-      timey.value = barPercentage(timebar)
+      let limit = barPercentage(timebar) + 5
+      console.log(limit);
+      if(limit < barRight.value) {
+        shrink.value = true
+      } else {
+        shrink.value = false
+      }
+
       click.value = true
     }
 
@@ -36,27 +54,28 @@ export default {
       click.value = false
     }
 
-    function clickHold() {
-      hold.value++
-    }
+    /*cssVariable(
+      '--transition',
+      hold, (value) => value > 0 ? 'none' : 'width 0.4s ease-in-out',
+      timebar
+    )*/
 
-    const transition = useCssVar('--color', el)
+    cssVariable(
+      '--right',
+      barRight, (value) => value + '%',
+      timebar
+    )
 
-    let transitionCSS = computed(() => {
-      let value = hold.value > 1 ? 0.01 : 0.4
-      return '--transition: ' + value + 's'
-    })
-
-    let formatedCSS = computed(() => {
-      return '--y: ' + timey + '%'
-    })
+    cssVariable(
+      '--left',
+      barLeft, (value) => value + '%',
+      timebar
+    )
 
     return {
       clickStart,
-      clickHold,
       timebar,
-      transitionCSS,
-      formatedCSS,
+      hold
     }
   }
 };
@@ -69,14 +88,22 @@ export default {
   height: 100%;
   width: 100%;
   background: green;
+  --transition: 0.04s;
+  --right: 50%;
+  --left: 0%;
 }
 
 .timebar .at {
   position: relative;
   height: 100%;
-  width: var(--y);
+  left: var(--left);
+  //width: var(--width);
+  position: absolute;
+  top: 0px;
+  left: var(--left);
+  right: calc(100% - var(--right));
   background: turquoise;
-  transition: width var(--transition) ease-in-out;
+  transition: var(--transition);
   .handle {
     content: "";
     height: 100%;
