@@ -1,7 +1,7 @@
 <template>
   <div
     class="timebar" ref="timebar"
-    @mousedown="clickStart()"
+    @mousedown="clicked = true"
     v-holdpress="() => hold++"
   >
     <div class="at">
@@ -12,53 +12,30 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue'
-//import _ from 'lodash'
+import { ref } from 'vue'
 
 import { cssVariable } from '@/utils/utils.js'
-import barHandler from './utils/index.js'
+import { barHandles } from './utils/index.js'
 
 export default {
   name: "mediaTest",
   setup() {
     let hold = ref(0)
-    let click = ref(false)
-
-    let barLeft = ref(0)
-    let barRight = ref(0)
-
-    let shrink = ref(false)
+    let clicked = ref(false)
 
     let timebar = ref(null)
-    let { holdMousePos, barPercentage } = barHandler(timebar, click, () => clickDone())
-    watch(holdMousePos, (newValue) => {
-      shrink.value ?
-        barLeft.value = newValue : 
-        barRight.value = newValue 
-    })
-
-    function clickStart() {
-      let limit = barPercentage(timebar) + 5
-      console.log(limit);
-      if(limit < barRight.value) {
-        shrink.value = true
-      } else {
-        shrink.value = false
-      }
-
-      click.value = true
-    }
+    let { barLeft, barRight } = barHandles(timebar, clicked, () => clickDone())
 
     function clickDone() {
       hold.value = 0
-      click.value = false
+      clicked.value = false
     }
 
-    /*cssVariable(
+    cssVariable(
       '--transition',
-      hold, (value) => value > 0 ? 'none' : 'width 0.4s ease-in-out',
+      hold, (value) => value > 0 ? 'none' : '0.4s',
       timebar
-    )*/
+    )
 
     cssVariable(
       '--right',
@@ -73,7 +50,7 @@ export default {
     )
 
     return {
-      clickStart,
+      clicked,
       timebar,
       hold
     }
@@ -88,7 +65,8 @@ export default {
   height: 100%;
   width: 100%;
   background: green;
-  --transition: 0.04s;
+  cursor: pointer;
+  --transition: .4s;
   --right: 50%;
   --left: 0%;
 }
@@ -97,7 +75,6 @@ export default {
   position: relative;
   height: 100%;
   left: var(--left);
-  //width: var(--width);
   position: absolute;
   top: 0px;
   left: var(--left);

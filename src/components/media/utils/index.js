@@ -1,33 +1,47 @@
-import { ref, watch, } from 'vue'
+import { ref, watch } from 'vue'
 import { useMouse, useMousePressed } from '@vueuse/core'
-import _ from 'lodash'
 
-import { numberToPercent } from '@/utils/utils.js'
+import { elementPercent } from '@/utils/utils.js'
 
-export default function barHandler(elRef, click, clickDone) {
-  const holdMousePos = ref(0)
+export function barClick(elRef, clicked, clickDone) {
+  const mousePercent = ref(0)
   const { x } = useMouse()
   const { pressed } = useMousePressed()
 
-  watch(pressed, (pressedSomewhere) => {
-    updatesMousePos(pressedSomewhere)
-    if(!pressedSomewhere) clickDone()
+  watch(pressed, (clickedSomewhere) => {
+    clickedSomewhere ?
+      updatesMousePos() :
+      clickDone()
   })
 
-  watch(x, () => {updatesMousePos(true)})
+  watch(x, () => updatesMousePos())  
 
-  function updatesMousePos(pressedSomewhere) {
-    if(pressedSomewhere && click.value) holdMousePos.value = barPercentage(elRef)
+  function updatesMousePos() {
+    let mouseX = x.value
+    if(clicked.value) mousePercent.value = elementPercent(elRef.value, mouseX)
   }
 
-  function barPercentage(el) {
-    const boxWidth = el.value.clientWidth
-    let boxModel = el.value.getBoundingClientRect()
-    let left = x.value - boxModel.left
-    let perc = numberToPercent(left, boxWidth)
-    perc = _.clamp(perc, 0, 100)
-    return perc
-  }
+  return { mousePercent }
+}
 
-  return {holdMousePos, barPercentage}
+export function barHandles(elRef, clicked, clickDone) {
+  let barLeft = ref(0)
+  let barRight = ref(0)
+  let whichHandle = ref(false)
+
+  let { mousePercent } = barClick(elRef, clicked, () => clickDone())
+  watch(mousePercent, (perc) => {
+    whichHandle.value ?
+      barLeft.value = perc : 
+      barRight.value = perc 
+  })
+
+  watch(clicked, () => {
+    let limit = barLeft.value + 5
+    mousePercent < limit ? 
+    whichHandle.value = true :
+    whichHandle.value = false
+  })
+
+  return { barLeft, barRight }
 }
