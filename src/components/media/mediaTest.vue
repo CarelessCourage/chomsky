@@ -15,7 +15,7 @@
 import { ref } from 'vue'
 
 import { cssVariable } from '@/utils/utils.js'
-import { barHandles } from './utils/index.js'
+import { barHandles, barClick } from './utils/index.js'
 
 export default {
   name: "mediaTest",
@@ -24,7 +24,8 @@ export default {
     let clicked = ref(false)
 
     let timebar = ref(null)
-    let { barLeft, barRight } = barHandles(timebar, clicked, () => clickDone())
+    let { barPerc } = barClick(timebar, clicked, () => clickDone(), true)
+    let { barLeft, barRight } = barHandles(barPerc, true)
 
     function clickDone() {
       hold.value = 0
