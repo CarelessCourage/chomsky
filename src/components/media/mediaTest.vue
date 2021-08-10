@@ -25,7 +25,7 @@ export default {
 
     let timebar = ref(null)
     let { barPerc } = barClick(timebar, clicked, () => clickDone(), true)
-    let { barLeft, barRight } = barHandles(barPerc, true)
+    let { barLeft, barRight } = barHandles(barPerc, false)
 
     function clickDone() {
       hold.value = 0

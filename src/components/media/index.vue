@@ -12,8 +12,6 @@
     <div class="bar time" @click="toggle()">
       <mediaTest/>
 
-      <mediaSlider v-if="false"/>
-      <mediaPsuedo v-if="false"/>
       <div  v-if="false" class="progress" :style="`--present: ${$store.state.media.timeui.present}%`">
         <SvgPlay :play="play"/>
       </div>
@@ -25,8 +23,6 @@
 <script>
 import SvgVolume from "@/assets/svg-vue/volume"
 import SvgPlay from "@/assets/svg-vue/play"
-import mediaSlider from "@/components/media/mediaSlider"
-import mediaPsuedo from "@/components/media/mediaPsuedo"
 import mediaTest from "@/components/media/mediaTest"
 
 import { ref } from 'vue'
@@ -36,8 +32,6 @@ export default {
   components: {
     SvgVolume,
     SvgPlay,
-    mediaSlider,
-    mediaPsuedo,
     mediaTest
   },
   computed: {

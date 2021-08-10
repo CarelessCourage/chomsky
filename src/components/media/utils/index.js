@@ -78,7 +78,7 @@ export function barHandles(barPerc, forced = false) {
   let whichHandle = ref(false)
 
   watch(barPerc, (perc) => {
-    checkHandle(5, forced)
+    checkHandle(10, forced)
     whichHandle.value ?
       barLeft.value = perc : 
       barRight.value = perc 

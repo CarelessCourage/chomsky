@@ -7,7 +7,7 @@
 
 <script>
 import { defineComponent } from "vue";
-import mediaControls from "@/components/media/mediaControls.vue";
+import mediaControls from "@/components/media/";
 
 export default defineComponent({
   name: "app",
