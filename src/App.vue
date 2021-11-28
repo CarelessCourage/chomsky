@@ -1,17 +1,11 @@
 <script setup>
-// This starter template is using Vue 3 <script setup>
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import HelloWorld from './components/HelloWorld.vue'
 import Intro from './components/intro.vue'
 import Feed from './components/feed.vue'
 import Post from './components/post.vue'
-
-import img from './assets/logo.png'
-
 </script>
 
 <template>
-  <img :src="img" />
   <Post />
   <div class="page">
     <Feed />
