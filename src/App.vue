@@ -6,9 +6,12 @@ import Intro from './components/intro.vue'
 import Feed from './components/feed.vue'
 import Post from './components/post.vue'
 
+import img from './assets/logo.png'
+
 </script>
 
 <template>
+  <img :src="img" />
   <Post />
   <div class="page">
     <Feed />
