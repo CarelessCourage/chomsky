@@ -1,22 +1,44 @@
 <script setup>
-import Combobox from './combobox.vue'
-import FeedFilter from './feedFilter.vue'
-import Cell from './cell.vue'
-import Longcell from './longcell.vue'
-import Widecell from './widecell.vue'
+import Combobox from './feed/combobox.vue'
+import FeedFilter from './feed/feedFilter.vue'
+import Cell from './feed/cell.vue'
+import Longcell from './feed/longcell.vue'
+import Widecell from './feed/widecell.vue'
 </script>
 
 <template>
+<div class="page">
   <Combobox/>
   <FeedFilter/>
   <div class="feedGrid">
-    <Widecell />
-    <Cell />
-    <Cell />
-    <Longcell />
-    <Cell />
-    <Cell />
+    <Widecell>
+      <img src="http://chomsky.imgix.net/brewing.jpg?q=20&auto=format,compress&cs=tinysrgb" width="150" alt="Vue.js">
+    </Widecell>
+    <Cell>
+      <p>In contemporary use, the <span>practice and study</span> of typography include a broad range, 
+        covering all aspects of letter design and application, both mechanical (typesetting,
+        type design, and typefaces) and manual (handwriting and calligraphy). 
+      </p>
+    </Cell>
+    <Cell>
+      <h3>this is text</h3>
+    </Cell>
+    <Longcell>
+      <h1>This is a title</h1>
+    </Longcell>
+    <Cell>
+      <p><span>In contemporary use,</span> the practice and study of typography include a broad range, 
+        covering all aspects of letter design and application, both mechanical (typesetting,
+        type design, and typefaces) and manual (handwriting and calligraphy). 
+      </p>
+    </Cell>
+    <Cell>
+      <p>In contemporary use, the practice and study of typography include a broad range, 
+        covering all aspects of letter design and application,
+      </p>
+    </Cell>
   </div>
+</div>
 </template>
 
 <style lang="scss">
@@ -48,11 +70,15 @@ import Widecell from './widecell.vue'
 .cell {
   background: var(--shade);
   border-radius: var(--radius);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
   grid-column: span 2;
+  padding: var(--marginx);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    justify-self: start;
+    align-self: start;
+  }
 }
 </style>

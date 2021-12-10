@@ -1,9 +1,11 @@
 <script setup>
+import authordot from "../shared/authordot.vue";
 </script>
 
 <template>
   <div class="cell">
-    <div class="author"></div>
+    <slot></slot>
+    <authordot/>
   </div>
 </template>
 

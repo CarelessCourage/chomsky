@@ -1,20 +1,85 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import Intro from './components/intro.vue'
+import {ref} from "vue"
+
+import Structure from './components/structure.vue'
 import Feed from './components/feed.vue'
 import Post from './components/post.vue'
+import Interact from "./components/interact.vue"
+
+const interact = ref(false);
 </script>
 
 <template>
-  <Post />
-  <div class="page">
-    <Feed />
+  <div class="read-layer" :class="{active: interact}">
+    <div class="opacity-layer">
+      <Structure v-if="false"/>
+      <Post />
+      <Feed />
+    </div>
+  </div>
+  <div class="cirle" @click="interact = !interact"></div>
+  <div class="write-layer">
+    <Interact/>
   </div>
 </template>
 
 <style lang="scss">
 //@import '~@fortawesome/fontawesome-free/scss/fontawesome';
 //@import '~@fortawesome/fontawesome-free/scss/solid';
+
+.read-layer {
+  background: var(--background);
+  padding-bottom: var(--marginxxx);
+  position: relative;
+  z-index: 1;
+  transform:
+    translateY(var(--interactY))
+    translateX(calc(0px - var(--interactX)));
+
+  transition: .4s ease-in-out;
+
+  .opacity-layer {
+    opacity: .1;
+    transition: opacity .4s ease-in-out;
+  }
+
+  &.active {
+    transform:
+      translateY(0px)
+      translateX(0px);
+
+    .opacity-layer {
+      opacity: 1;
+    }
+  }
+}
+
+ .cirle {
+    --size: 12em;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background: var(--flavor);
+    position: fixed;
+    z-index: 1000;
+    top: calc(0px - var(--size) / 2);
+    right: calc(0px - var(--size) / 2);
+    cursor: pointer;
+    transition: .4s ease-in-out;
+    &:hover {
+      --size: 21em;
+    }
+    &:active {
+      --size: 13em;
+      transition: .2s ease-in-out;
+    }
+  }
+
+.write-layer {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
 
 @font-face {
   font-family: "Roboto VF";
@@ -58,14 +123,15 @@ html {
 }
 
 #app {
+  --interactY: 90px;
+  --interactX: 320px;
+  --vail: 0.2;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
   font-family: "Roboto VF", sans-serif;
   background: var(--background);
   color: var(--foreground);
-
-  padding-bottom: var(--marginxxx);
 }
 
 h1 {

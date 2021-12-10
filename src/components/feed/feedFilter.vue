@@ -34,13 +34,13 @@ function changeFilterStatus(newStatus) {
     @mouseleave="mouseOutside = true"
   ></div>
   <div class="rangeWrapper" @click="changeFilterStatus(`range`)">
-    <h2>global</h2>
-    <p>15km</p>
+    <p class="web"><span>global</span></p>
+    <p class="details">15km</p>
   </div>
 </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .solid {
   height: 0em;
   border-top: 2px solid var(--foreground);
@@ -99,16 +99,14 @@ h1,
   max-width: 200px;
   @media only screen and (max-width: 450px) {line-height: 24px;}
   &:hover {@include makeButton}
+  p {
+    text-align: right;
+    //margin-top: -1em;
+  }
 }
 
 .range .rangeWrapper,
 .type h1 {
-  font-weight: 800;
-  h2 {
-    opacity: 1; 
-    font-weight: 700;
-    font-size: 1.5em;
-  }
   @include makeButton
 }
 
@@ -124,16 +122,9 @@ h1,
   @media only screen and (max-width: 450px) {
     h2 {
       opacity: 0.2;
-      font-size: 1em;
-      font-weight: 500;
       transition: .4s ease-in-out;
     }
     p {display: none}
-  }
-  @media only screen and (min-width: 450px) {
-    p {
-      opacity: 0.2;
-    }
   }
 }
 
