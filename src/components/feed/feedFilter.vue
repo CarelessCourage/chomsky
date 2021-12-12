@@ -42,7 +42,7 @@ function changeFilterStatus(newStatus) {
 
 <style lang="scss" scoped>
 .solid {
-  height: 0em;
+  height: 0px;
   border-top: 2px solid var(--foreground);
   transition: 0.4s ease-in-out;
   @media only screen and (max-width: 450px) {
@@ -59,7 +59,7 @@ function changeFilterStatus(newStatus) {
 .feedFilter:not(.default) {
   padding-bottom: var(--marginx);
   .solid {
-    height: 20em;
+    height: 300px;
     border-top: 0px solid var(--foreground);
     transform: translateY(0em);
     background-color: var(--shade);
@@ -97,12 +97,10 @@ h1,
   transition: 0.8s;
   overflow: hidden;
   max-width: 200px;
+  padding: 1rem 0px 0.5rem;
   @media only screen and (max-width: 450px) {line-height: 24px;}
   &:hover {@include makeButton}
-  p {
-    text-align: right;
-    //margin-top: -1em;
-  }
+  p {text-align: right;}
 }
 
 .range .rangeWrapper,

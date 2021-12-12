@@ -8,12 +8,12 @@ const activeTab = ref("content")
 
 <template>
 <div class="comboBox">
-  <ul class="tabs">
-    <li :class="{active: activeTab === `content`}" @click="activeTab = `content`">Content</li>
-    <li :class="{active: activeTab === `sources`}" @click="activeTab = `sources`">Sources</li>
-    <li :class="{active: activeTab === `sort`}" @click="activeTab = `sort`">Sort</li>
+  <ul class="tabs text web">
+    <li :class="{active: activeTab === `content`}" @click="activeTab = `content`"><p>Content</p></li>
+    <li :class="{active: activeTab === `sources`}" @click="activeTab = `sources`"><p>Sources</p></li>
+    <li :class="{active: activeTab === `sort`}" @click="activeTab = `sort`"><p>Sort</p></li>
   </ul>
-  <i class="fas fa-search"></i>
+  <p><span><i class="fas fa-search"></i></span></p>
   <Multiselect/>
 </div>
 </template>
@@ -21,9 +21,9 @@ const activeTab = ref("content")
 <style lang="scss">
 .comboBox {
   position: relative;
-  margin-bottom: 130px;
+  margin-bottom: var(--marginxx);
   svg {
-    bottom: 22px;
+    bottom: 1.5rem;
     left: 18px;
     position: absolute;
     z-index: 1;

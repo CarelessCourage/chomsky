@@ -42,18 +42,20 @@ import Widecell from './feed/widecell.vue'
 </template>
 
 <style lang="scss">
+@import "../css";
+
 .feedGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(200px, auto);
+  //grid-auto-rows: minmax(200px, auto);
   grid-gap: 50px;
-  @media only screen and (max-width: 850px) {
+  @media only screen and (max-width: $tablet) {
     grid-template-columns: 1fr;
   }
 }
 
 .author {
-  --size: 3em;
+  --size: 40px;
   
   background-color: var(--flavor);
   border-radius: 100%;
@@ -65,9 +67,14 @@ import Widecell from './feed/widecell.vue'
   z-index: 3;
   position: absolute;
   bottom: calc(0px - var(--size) / 2);
+
+  @media only screen and (max-width: $tablet) {
+    --size: 30px;
+  }
 }
 
 .cell {
+  //max-width: 520px;
   background: var(--shade);
   border-radius: var(--radius);
   position: relative;
@@ -77,8 +84,8 @@ import Widecell from './feed/widecell.vue'
   align-items: center;
   justify-content: center;
   p {
-    justify-self: start;
-    align-self: start;
+   justify-self: start;
+   align-self: start;
   }
 }
 </style>

@@ -5,12 +5,25 @@
   </div>
   <div class="panel">
     <div class="controls">
-      <div class="connection"></div>
-      <div class="settings"></div>
-      <div class="speaker"></div>
-      <div class="mic"></div>
-      <div class="call"></div>
+      <div class="connection">
+        <i class="fas fa-microphone-slash"></i>
+        <p><span>connection <br> strong</span></p>
+      </div>
+      <div class="settings">
+        <i class="fas fa-cogs"></i>
+      </div>
+      <div class="speaker">
+        <i class="fas fa-headphones"></i>
+      </div>
+      <div class="mic">
+        <i class="fas fa-microphone-slash"></i>
+      </div>
+      <div class="call">
+        <i class="fas fa-phone-slash"></i>
+        <p><span>hang up</span></p>
+      </div>
     </div>
+
   </div>
 </div>
 </template>
@@ -20,9 +33,9 @@ h1.logo {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 70px;
-  letter-spacing: -0.15em;
-  line-height: 0.64em;
-  padding-top: 0.08em;
+  letter-spacing: -0.15rem;
+  line-height: 0.64rem;
+  padding-top: 0.08rem;
 }
 
 .interact {
@@ -58,11 +71,18 @@ h1.logo {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 5px;
-  height: 10em;
+  height: 7rem;
   padding: 5px;
 
   div {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    grid-gap: 10px;
+    padding: 0px var(--margin);
     background: var(--background);
+    color: var(--foreground);
+    cursor: pointer;
   }
 
   div:nth-child(1) {

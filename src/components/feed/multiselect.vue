@@ -34,8 +34,8 @@ function testOption(what) {
   @select="(lol) => testOption(lol)"
 >
   <template v-slot:tag="{ option, handleTagRemove, disabled }">
-    <div class="multiselect-tag">
-      {{ option.label }}
+    <div class="multiselect-tag text web">
+     {{ option.label }}
       <span
           v-if="!disabled"
           class="multiselect-tag-remove"
@@ -54,9 +54,6 @@ function testOption(what) {
 
 <style lang="scss">
 .multiselect-group-label {
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 2px;
   background-color: var(--shade);
   border-bottom: dotted 1px var(--foreground);
   span {
@@ -73,7 +70,7 @@ function testOption(what) {
 }
 
 li.multiselect-option {
-  padding-left: 1.5em;
+  padding-left: 15px;
   transition: .1s ease-in-out;
   &:hover {
     background: var(--flavor);
@@ -131,12 +128,12 @@ li.multiselect-option {
       max-width: 0px;
     }
     to {
-      max-width: 10em;
+      max-width: 100px;
     }
   }
 
   .multiselect-dropdown {
-    max-height: 15em;
+    max-height: 200px;
     transition: max-height .2s;
     --ms-dropdown-border-width: 1px;
     --ms-dropdown-border-color: var(--foreground);

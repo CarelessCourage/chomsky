@@ -16,10 +16,4 @@ import authordot from "../shared/authordot.vue";
         grid-column: span 2;
     }
   }
-
-  .feedGrid .author {
-    @media only screen and (min-width: 850px) {
-        --size: 4.5em;
-    }
-  }
 </style>

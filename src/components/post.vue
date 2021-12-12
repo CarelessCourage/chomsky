@@ -38,9 +38,7 @@ import authordot from "./shared/authordot.vue";
 </template>
 
 <style lang="scss">
-#app {
-  //transform: translateX(-5em);
-}
+@import "../css";
 
 @mixin baseTile {
   background: var(--background);
@@ -52,26 +50,28 @@ import authordot from "./shared/authordot.vue";
 .abstract {
   @include baseTile;
   margin-bottom: var(--margin);
-  min-height: 5em;
+  min-height: 100px;
   position: relative;
   display: flex;
-  //justify-content: center;
-  .author {--size: 5em;}
+  .author {
+    --size: 70px;
+    @media only screen and (max-width: $tablet) {
+      --size: 40px;
+    }
+  }
 }
 
 .content {
   @include baseTile;
-  min-height: 10em;
+  min-height: 50px;
   padding: var(--marginx) var(--marginx) var(--marginxx);
 }
 
 .post {
-  //--background: var(--foreground);
-  //--foreground: var(--background);
   background: var(--foreground);
 }
+
 #slide {
   padding-bottom: var(--marginxx);
-  //width: 50em;
 }
 </style>

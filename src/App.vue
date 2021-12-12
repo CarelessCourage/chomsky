@@ -6,13 +6,13 @@ import Feed from './components/feed.vue'
 import Post from './components/post.vue'
 import Interact from "./components/interact.vue"
 
-const interact = ref(false);
+const interact = ref(true);
 </script>
 
 <template>
   <div class="read-layer" :class="{active: interact}">
     <div class="opacity-layer">
-      <Structure v-if="false"/>
+      <Structure v-if="true"/>
       <Post />
       <Feed />
     </div>
@@ -24,8 +24,7 @@ const interact = ref(false);
 </template>
 
 <style lang="scss">
-//@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-//@import '~@fortawesome/fontawesome-free/scss/solid';
+@import "./css";
 
 .read-layer {
   background: var(--background);
@@ -55,7 +54,7 @@ const interact = ref(false);
 }
 
  .cirle {
-    --size: 12em;
+    --size: 200px;
     width: var(--size);
     height: var(--size);
     border-radius: 50%;
@@ -67,10 +66,10 @@ const interact = ref(false);
     cursor: pointer;
     transition: .4s ease-in-out;
     &:hover {
-      --size: 21em;
+      --size: 300px;
     }
     &:active {
-      --size: 13em;
+      --size: 240px;
       transition: .2s ease-in-out;
     }
   }
@@ -101,21 +100,16 @@ const interact = ref(false);
   --flavor: #368f8b;
   --shade: #fdfff6;
   --flavor-contrast: var(--background);
+}
 
+:root {
+  --radius: 5px;
   --margin: 25px;
   --marginx: calc(2 * var(--margin));
   --marginxx: calc(4 * var(--margin));
   --marginxxx: calc(8 * var(--margin));
-
-  --radius: 5px;
-
-  @media only screen and (max-width: 850px) {
-    --margin: 12px;
-  }
-
-  @media only screen and (max-width: 360px) {
-    --margin: 6px;
-  }
+  @media only screen and (max-width: $tablet) {--margin: 12px;}
+  @media only screen and (max-width: $mobile) {--margin: 6px;}
 }
 
 html {
@@ -128,19 +122,22 @@ html {
   --vail: 0.2;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
   font-family: "Roboto VF", sans-serif;
   background: var(--background);
   color: var(--foreground);
 }
 
-h1 {
-  font-size: clamp(2em, 5vw, 8em);
+@media only screen and (max-width: $phablet) {
+  #app {--interactX: 100vw;}
 }
+
+//h1 {
+  //font-size: clamp(2em, 5vw, 8em);
+//}
 
 .page {
   max-width: calc(100vw - var(--marginxx));
-  width: 60em;
+  width: 1000px;
   margin: auto;
   padding-top: var(--marginxx);
 }
