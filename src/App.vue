@@ -12,7 +12,7 @@ const interact = ref(true);
 <template>
   <div class="read-layer" :class="{active: interact}">
     <div class="opacity-layer">
-      <Structure v-if="true"/>
+      <Structure v-if="false"/>
       <Post />
       <Feed />
     </div>

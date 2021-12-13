@@ -75,6 +75,7 @@ import Widecell from './feed/widecell.vue'
 
 .cell {
   //max-width: 520px;
+  max-height: 500px;
   background: var(--shade);
   border-radius: var(--radius);
   position: relative;

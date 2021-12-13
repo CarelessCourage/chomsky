@@ -8,23 +8,31 @@ const activeTab = ref("content")
 
 <template>
 <div class="comboBox">
-  <ul class="tabs text web">
-    <li :class="{active: activeTab === `content`}" @click="activeTab = `content`"><p>Content</p></li>
-    <li :class="{active: activeTab === `sources`}" @click="activeTab = `sources`"><p>Sources</p></li>
-    <li :class="{active: activeTab === `sort`}" @click="activeTab = `sort`"><p>Sort</p></li>
+  <ul class="tabs">
+    <li :class="{active: activeTab === `content`}" @click="activeTab = `content`"><p class="web">Content</p></li>
+    <li :class="{active: activeTab === `sources`}" @click="activeTab = `sources`"><p class="web">Sources</p></li>
+    <li :class="{active: activeTab === `sort`}" @click="activeTab = `sort`"><p class="web">Sort</p></li>
   </ul>
-  <p><span><i class="fas fa-search"></i></span></p>
-  <Multiselect/>
+  <div class="flex web text">
+    <i class="fas fa-search"></i>
+    <Multiselect/>
+  </div>
 </div>
 </template>
 
 <style lang="scss">
+.flex {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+
 .comboBox {
   position: relative;
   margin-bottom: var(--marginxx);
   svg {
-    bottom: 1.5rem;
-    left: 18px;
+    left: 16px;
     position: absolute;
     z-index: 1;
   }
@@ -46,14 +54,22 @@ const activeTab = ref("content")
 
       opacity: 0.4;
 
+      p {
+        transition: .4s ease-in-out;
+      }
+
       &.active {
-        font-weight: 600;
         opacity: 1;
+        p {
+          font-variation-settings: "wght" 900, "wdth" 100;
+        }
       }
 
       &:hover {
         padding: var(--padding) var(--xxPadding);
-        font-weight: 600;
+        p {
+          font-variation-settings: "wght" 900, "wdth" 100;
+        }
       }
     }
   }

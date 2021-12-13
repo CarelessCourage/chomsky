@@ -32,14 +32,15 @@ function testOption(what) {
   mode="tags"
   placeholder="Search for a character"
   @select="(lol) => testOption(lol)"
+  class="text web"
 >
   <template v-slot:tag="{ option, handleTagRemove, disabled }">
     <div class="multiselect-tag text web">
      {{ option.label }}
       <span
-          v-if="!disabled"
-          class="multiselect-tag-remove"
-          @mousedown.prevent="handleTagRemove(option, $event)"
+        v-if="!disabled"
+        class="multiselect-tag-remove"
+        @mousedown.prevent="handleTagRemove(option, $event)"
       >
         <span class="multiselect-tag-remove-icon"></span>
       </span>
@@ -47,7 +48,7 @@ function testOption(what) {
   </template>
 
   <template v-slot:option="{ option }">
-    {{ option.label }}
+    <p class="web">{{ option.label }}</p>
   </template>
 </Multiselect>
 </template>

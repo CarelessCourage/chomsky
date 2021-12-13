@@ -13,7 +13,7 @@ html {
   font-size: clamp(9px, 1vw, 11px);
 }
 
-h1, h2, h3, p.details {
+h1, h2, h3, p.details, button {
   max-width: 55ch;
   text-transform: lowercase;
 }
@@ -37,7 +37,7 @@ h3 {
   font-variation-settings: "wght" 900, "wdth" 100;
 }
 
-p {
+p, button {
   font-size: 1rem;
   line-height: 1.3rem;
   letter-spacing: 0px;
@@ -56,8 +56,35 @@ p.details {
   opacity: .3;
 }
 
+button {
+  font-variation-settings: "wght" 800, "wdth" 100;
+}
+
+button {
+  cursor: pointer;
+  border-radius: var(--radius);
+  background: var(--flavor);
+  color: var(--background);
+  padding: 0rem 5rem;
+  min-height: 4.5rem;
+  border: none;
+  transition: .4s ease-in-out;
+  &:hover {
+    letter-spacing: 0.2rem;
+    opacity: .8;
+    transition: .2s ease-in-out;
+  }
+  &:active {
+    letter-spacing: -0.2rem;
+    opacity: .4;
+    transition: .2s ease-in-out;
+  }
+}
+
 p.web,
-.text.web {
+button,
+.text.web, 
+.text.web p{
   font-size: 1.5rem;
   line-height: 2rem;
   span {

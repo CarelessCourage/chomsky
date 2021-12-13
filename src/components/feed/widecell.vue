@@ -11,12 +11,13 @@ import authordot from "../shared/authordot.vue";
 
 <style lang="scss">
   .cell.widecell {
+    padding: 0px;
     grid-row: span 2;
     @media only screen and (max-width: 850px) {
       grid-row: span 1;
     }
     img {
-      position: absolute;
+      //position: absolute;
       width: 100%;
       height: 100%;
       object-fit: cover;
