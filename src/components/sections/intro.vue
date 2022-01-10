@@ -1,8 +1,11 @@
 <script setup>
+defineProps({
+  post: Boolean,
+})
 </script>
 
 <template>
-  <div class="intro">
+  <div class="intro" :class="{active: !post}">
     <div class="sunrise">
       <div class="sun"></div>
     </div>
@@ -73,6 +76,13 @@
   100% { width: 140vw; height: 140vw; bottom: calc((140vw / 2) * -1);}
 }
 
+.intro {
+  max-height: 200vh;
+  transition: all 0.4s ease-in-out;
+  &:not(.active) {
+    max-height: 0vh;
+  }
+}
 
 .intro {
   display: flex;

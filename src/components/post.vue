@@ -1,10 +1,14 @@
 <script setup>
 import authordot from "./shared/authordot.vue";
 let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80"
+
+defineProps({
+  post: Boolean,
+})
 </script>
 
 <template>
-  <div class="post">
+  <div class="post" :class="{active: post}">
     <div id="slide" class="page">
       <div class="abstract">
         <h1>This is a title</h1>
@@ -36,6 +40,7 @@ let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb
       <div class="authorFixed">
         <div class="authorWrapper">
           <div class="image">
+            <p>By Sara Nevile</p>
             <authordot v-if="true"/>
           </div>
         </div>
@@ -45,6 +50,15 @@ let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb
 </template>
 
 <style lang="scss">
+.post {
+  max-height: 200vh;
+  transition: all 0.4s ease-in-out;
+  &:not(.active) {
+    max-height: 0vh;
+    overflow: hidden;
+  }
+}
+
 @import "../css";
 
 @mixin baseTile {
@@ -127,6 +141,10 @@ let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb
     overflow: hidden;
     height: 100%;
     padding-top: 8rem;
+
+    p {
+      transform: translateY(12px);
+    }
 
     .author {
       --size: 8em;

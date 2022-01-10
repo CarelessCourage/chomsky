@@ -4,13 +4,18 @@ import FeedFilter from './feed/feedFilter.vue'
 import Cell from './feed/cell.vue'
 import Longcell from './feed/longcell.vue'
 import Widecell from './feed/widecell.vue'
+
+defineProps({
+  post: Boolean,
+  togglePost: Function,
+})
 </script>
 
 <template>
 <div class="page">
   <Combobox/>
   <FeedFilter/>
-  <div class="feedGrid">
+  <div class="feedGrid" @click="togglePost()">
     <Widecell>
       <img src="http://chomsky.imgix.net/brewing.jpg?q=20&auto=format,compress&cs=tinysrgb" width="150" alt="Vue.js">
     </Widecell>
@@ -74,11 +79,12 @@ import Widecell from './feed/widecell.vue'
 }
 
 .cell {
+  cursor: pointer;
   //max-width: 520px;
   max-height: 500px;
   background: var(--shade);
   border-radius: var(--radius);
-  position: relative;
+  position: relative; z-index: 2;
   grid-column: span 2;
   padding: var(--marginx);
   display: flex;
@@ -87,6 +93,55 @@ import Widecell from './feed/widecell.vue'
   p {
    justify-self: start;
    align-self: start;
+  }
+
+  * {
+    z-index: 3;
+  }
+
+  &:hover {
+    * {
+      //position: relative;
+      z-index: 3000;
+    }
+  }
+
+  &:hover:after {
+    z-index: 2000;
+  }
+
+  &:hover:before {
+    z-index: 1000;
+    transform: scale(1.1, 1.2);
+  }
+
+  &:active:before {
+    transform: scale(1.05, 1.15);
+  }
+
+  &:after {
+    content: "";
+    position: absolute; z-index: -4;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: var(--shade);
+    opacity: 1;
+    border-radius: var(--radius);
+  }
+  
+  &:before {
+    content: "";
+    position: absolute; z-index: -5;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: var(--flavor);
+    opacity: 1;
+    border-radius: var(--radius);
+    transition: transform 0.2s ease-in-out;
   }
 }
 </style>

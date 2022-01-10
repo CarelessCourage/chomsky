@@ -2,7 +2,10 @@
 import { watch, ref } from "vue";
 
 const props = defineProps({
-  color: Number
+  color: Number,
+  post: Boolean,
+  toggleSound: Function,
+  toggleInteract: Function,
 })
 
 var mix = function(color_1, color_2, weight) {
@@ -38,13 +41,13 @@ watch(() => props.color, (val) => {
 </script>
 
 <template>
-  <div class="cirle">
-    <div class="cap"></div>
+  <div class="circle" :class="{active: !post}">
+    <div class="cap" @click="toggleInteract()"></div>
     <div class="corner top">
       <i class="fas fa-phone-slash"></i>
     </div>
     <div class="corner"></div>
-    <div class="corner bottom">
+    <div class="corner bottom" @click="toggleSound()">
       <i class="fas fa-microphone-slash"></i>
     </div>
     <div class="corner"></div>
@@ -84,7 +87,7 @@ watch(() => props.color, (val) => {
 }
 
 .cap {
-  position: absolute; z-index: 20;
+  position: absolute; z-index: 2000;
   background: v-bind(colorMix);
 
   --size: 50%;
@@ -102,7 +105,12 @@ watch(() => props.color, (val) => {
   }
 }
 
-.cirle {
+.circle.active {
+  top: calc(0px - var(--size)) !important;
+  right: calc(0px - var(--size)) !important;
+}
+
+.circle {
   --color: var(--flavor);
   background-color: v-bind(colorMix);
 

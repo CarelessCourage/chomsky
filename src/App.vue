@@ -11,8 +11,9 @@ import CircleBurger from "./components/circleBurger.vue"
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
-gsap.registerPlugin(Flip, ScrollTrigger);
+gsap.registerPlugin(Flip, ScrollTrigger, ScrollToPlugin);
 
 const variable = ref(0)
 
@@ -21,6 +22,8 @@ var tl = gsap.timeline( { defaults: {   // You can now define default property v
 }, repeat:0, repeatDelay: 0 } );
 
 onMounted(() => {
+  gsap.to(window, 2,{delay: 4, scrollTo:{y:595, ease: "power4.inOut"}});
+
   tl.to(variable, {
     keyframes: [
       {value: 0, duration: 3},
@@ -39,18 +42,45 @@ onMounted(() => {
 });
 
 const interact = ref(true);
+const post = ref(false);
+
+function togglePost() {
+  post.value = !post.value;
+  gsap.to(window, 2,{scrollTo:{y:0}});
+}
+
+function toggleSound() {
+  tl.to(variable, {
+    keyframes: [
+      {value: 0, duration: 3},
+      {value: 100, duration: 1},
+      {value: 100, duration: 0.1},
+      {value: 0, duration: 2},
+      {value: 100, duration: 0.5},
+      {value: 0, duration: 0.5},
+      {value: 100, duration: 0.5},
+      {value: 0, duration: 0.5},
+      {value: 100, duration: 0.5},
+      {value: 0, duration: 1},
+    ]
+  });
+}
+
+function toggleInteract() {
+  interact.value = !interact.value;
+}
 </script>
 
 <template>
   <div class="read-layer" :class="{active: interact}">
     <div class="opacity-layer" @click="interact = true">
-      <Intro v-if="true"/>
+      <Intro v-if="true" :post="post"/>
       <Structure v-if="false"/>
-      <Post v-if="false" />
-      <Feed />
+      <Post v-if="true" :post="post"/>
+      <Feed :post="post" :togglePost="togglePost"/>
     </div>
   </div>
-  <CircleBurger @click="interact = !interact" :color="variable"/>
+  <CircleBurger :toggleInteract="toggleInteract" :color="variable" :post="post" :toggleSound="toggleSound"/>
   <div class="write-layer">
     <Interact :color="variable"/>
   </div>
