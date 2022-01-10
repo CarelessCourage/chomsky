@@ -9,27 +9,6 @@ let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb
       <div class="abstract">
         <h1>This is a title</h1>
       </div>
-      <div class="authorFixed">
-        <div class="authorWrapper">
-          <div class="button">
-            <button><i class="fas fa-feather-alt"></i></button>
-          </div>
-          <div class="button">
-            <button><i class="fas fa-folder-open"></i></button>
-          </div>
-          <div class="image">
-            <i class="fas fa-signature"></i>
-            <img :src="img">
-          </div>
-          <div class="button" v-if="false">
-            <button><i class="fas fa-signature"></i></button>
-          </div>
-          <div class="button">
-            <button>Follow</button>
-          </div>
-          <authordot v-if="false"/>
-        </div>
-      </div>
       <div class="content paragraphs">
         <p><span>In contemporary use,</span> the practice and study of 
           typography include a broad range, covering all aspects of letter 
@@ -54,6 +33,13 @@ let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb
           materials. 
         </p>
       </div>
+      <div class="authorFixed">
+        <div class="authorWrapper">
+          <div class="image">
+            <authordot v-if="true"/>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -63,6 +49,7 @@ let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb
 
 @mixin baseTile {
   background: var(--background);
+  //color: var(--background);
   border-radius: var(--radius);
   width: 100%;
   padding: var(--marginx);
@@ -70,8 +57,9 @@ let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb
 
 .post .page {
   display: grid;
+  gap: var(--margin);
   @media only screen and (min-width: $tablet) {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto 1fr;
     gap: var(--margin);
     .abstract {
       grid-column: span 2;
@@ -80,9 +68,12 @@ let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb
       top: var(--margin);
       position: sticky;
       grid-template-columns: 1fr 1fr 1fr;
-      height: 20em;
+      height: 15em;
       .image {
         grid-column: span 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   }
@@ -118,11 +109,11 @@ let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb
         transition: .4s ease-in-out;
       }
       &:hover svg {
-        transform: scale(8);
+        transform: scale(1);
         transition: .4s ease-in-out;
       }
       &:active svg {
-        transform: scale(6);
+        transform: scale(2);
         transition: .1s ease-in-out;
       }
     }
@@ -135,7 +126,14 @@ let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb
     align-items: center;
     overflow: hidden;
     height: 100%;
-    img {
+    padding-top: 8rem;
+
+    .author {
+      --size: 8em;
+      bottom: 3.5em;
+    }
+
+    /*img {
       opacity: 0.2;
       filter: blur(3px);
       transform: scale(1.1);
@@ -146,7 +144,7 @@ let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb
       color: var(--foreground);
       font-size: 50rem;
       opacity: 0.4;
-    }
+    }*/
   }
 
   img {
@@ -178,7 +176,7 @@ let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb
 }
 
 .post {
-  background: var(--foreground);
+  background: var(--shadedark);
 }
 
 #slide {
