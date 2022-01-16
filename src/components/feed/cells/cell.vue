@@ -1,5 +1,5 @@
 <script setup>
-import authordot from "../shared/authordot.vue";
+import authordot from "../../elements/authordot.vue";
 </script>
 
 <template>

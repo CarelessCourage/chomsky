@@ -1,15 +1,12 @@
 <script setup>
 import Node from "./node.vue"
-
-defineProps({
-  color: Number
-})
+import audio from "../../store/audio"
 </script>
 
 <template>
 <div class="interact">
   <div class="header">
-    <h1 class="logo">Chomsky {{color}}</h1>
+    <h1 class="logo">Chomsky {{audio.volume}}</h1>
   </div>
   <div class="panel">
     <div class="listeners">
@@ -17,7 +14,7 @@ defineProps({
       <p><span> 11 / 22 </span></p>
     </div>
     <div class="audioNode">
-      <Node :color="color"/>
+      <Node :color="audio.volume"/>
       <Node/>
       <Node/>
       <Node/>

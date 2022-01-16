@@ -1,11 +1,12 @@
 <script setup>
+import Postx from '../store/post.js'
 defineProps({
   post: Boolean,
 })
 </script>
 
 <template>
-  <div class="intro" :class="{active: !post}">
+  <div class="intro active" :class="{active: !Postx.toggle}">
     <div class="sunrise">
       <div class="sun"></div>
     </div>
@@ -128,7 +129,6 @@ defineProps({
     font-variation-settings: "wght" 900, "wdth" 100;
   }
 }
-
 
 @keyframes varia {
   0% { 

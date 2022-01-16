@@ -1,0 +1,26 @@
+.page {
+  max-width: calc(100vw - var(--marginxx));
+  width: 1000px;
+  margin: auto;
+  padding-top: var(--marginxx);
+}
+
+button {
+  cursor: pointer;
+  border-radius: var(--radius);
+  background: var(--flavor);
+  color: var(--background);
+  padding: 0rem 5rem;
+  min-height: 4.5rem;
+  border: none;
+  transition: .4s ease-in-out;
+  &:hover {
+    opacity: .8;
+    transition: .2s ease-in-out;
+  }
+  &:active {
+    letter-spacing: -0.2rem;
+    opacity: .4;
+    transition: .2s ease-in-out;
+  }
+}

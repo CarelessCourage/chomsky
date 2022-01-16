@@ -1,12 +1,10 @@
 <script setup>
-import { watch, ref } from "vue";
+import { watch, ref, toRef } from "vue";
+import Postx from '../../store/post.js'
+import audio, { toggleSound } from "../../store/audio"
+import { toggleInteract } from "../../store/interact"
 
-const props = defineProps({
-  color: Number,
-  post: Boolean,
-  toggleSound: Function,
-  toggleInteract: Function,
-})
+const volume = toRef(audio, 'volume')
 
 var mix = function(color_1, color_2, weight) {
   function d2h(d) { return d.toString(16); }  // convert a decimal value to hex
@@ -29,19 +27,18 @@ var mix = function(color_1, color_2, weight) {
   }
     
   return color; // PROFIT!
-};
+}
 var mixed = mix('2CFFE2', '368f8b', 0); // returns #bf002e
 
 const colorMix = ref(mixed)
 
-watch(() => props.color, (val) => {
+watch(volume, (val) => {
   colorMix.value = mix('2CFFE2', '368f8b', val);
 })
-
 </script>
 
 <template>
-  <div class="circle" :class="{active: !post}">
+  <div class="circle" :class="{active: !Postx.toggle}">
     <div class="cap" @click="toggleInteract()"></div>
     <div class="corner top">
       <i class="fas fa-phone-slash"></i>
@@ -128,7 +125,7 @@ watch(() => props.color, (val) => {
   //background: var(--color);
 
   position: fixed; z-index: 1000;
-  transform: rotate(-45deg) scale(calc(v-bind(color) / 400 + 1));
+  transform: rotate(-45deg) scale(calc(v-bind(volume) / 400 + 1));
 
   top: calc(0px - var(--size) / 2);
   right: calc(0px - var(--size) / 2);

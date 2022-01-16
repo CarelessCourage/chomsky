@@ -1,14 +1,11 @@
 <script setup>
-import Combobox from './feed/combobox.vue'
-import FeedFilter from './feed/feedFilter.vue'
-import Cell from './feed/cell.vue'
-import Longcell from './feed/longcell.vue'
-import Widecell from './feed/widecell.vue'
+import { togglePost } from '../../store/post.js'
 
-defineProps({
-  post: Boolean,
-  togglePost: Function,
-})
+import Combobox from './filter/combobox.vue'
+import FeedFilter from './filter/feedFilter.vue'
+import Cell from './cells/cell.vue'
+import Longcell from './cells/longcell.vue'
+import Widecell from './cells/widecell.vue'
 </script>
 
 <template>
@@ -47,7 +44,7 @@ defineProps({
 </template>
 
 <style lang="scss">
-@import "../css";
+@import "../../css";
 
 .feedGrid {
   display: grid;

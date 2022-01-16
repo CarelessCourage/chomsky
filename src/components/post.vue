@@ -1,14 +1,12 @@
 <script setup>
-import authordot from "./shared/authordot.vue";
-let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80"
+import Postx from '../store/post.js'
 
-defineProps({
-  post: Boolean,
-})
+import authordot from "./elements/authordot.vue";
+let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80"
 </script>
 
 <template>
-  <div class="post" :class="{active: post}">
+  <div class="post" :class="{active: Postx.toggle}">
     <div id="slide" class="page">
       <div class="abstract">
         <h1>This is a title</h1>

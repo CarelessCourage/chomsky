@@ -1,5 +1,5 @@
 <template>
-<div class="flex">
+<div class="flex d">
   <div class="author"></div>
 </div>
 </template>

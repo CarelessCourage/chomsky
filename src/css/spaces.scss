@@ -1,0 +1,9 @@
+:root {
+  --radius: 5px;
+  --margin: 25px;
+  --marginx: calc(2 * var(--margin));
+  --marginxx: calc(4 * var(--margin));
+  --marginxxx: calc(8 * var(--margin));
+  @media only screen and (max-width: $tablet) {--margin: 12px;}
+  @media only screen and (max-width: $mobile) {--margin: 6px;}
+}

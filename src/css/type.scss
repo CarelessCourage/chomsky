@@ -1,0 +1,82 @@
+@font-face {
+  font-family: "Ultra";
+  src: url('../assets/fonts/legacy/GT-Ultra-Trial-VF.woff2') format('woff2 supports variations'),
+      url('../assets/fonts/legacy/GT-Ultra-Trial-VF.woff2') format('woff2-variations');
+  font-stretch: 75% 100%;
+  font-style: oblique 0deg 12deg;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: "Flexa";
+  src: url('../assets/fonts/GT-Flexa-Mono-VF-Trial.woff2') format('woff2 supports variations'),
+      url('../assets/fonts/GT-Flexa-VF-Trial.woff2') format('woff2-variations');
+  font-stretch: 75% 100%;
+  font-style: oblique 0deg 12deg;
+  font-weight: 100 900;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Ultra", "Flexa", sans-serif;
+  font-size: clamp(12px, 1vw, 18px);
+}
+
+h1, h2, h3, p.details, button {
+  max-width: 55ch;
+  text-transform: lowercase;
+}
+
+h1 {
+  font-size: 5rem;
+  line-height: 5rem;
+  font-variation-settings: "wght" 900, "wdth" 100;
+}
+
+h2 {
+  font-size: 4rem;
+  line-height: 4rem;
+  font-variation-settings: "wght" 400, "wdth" 100;
+}
+
+h3 {
+  font-size: 3rem;
+  line-height: 3rem;
+  letter-spacing: -0.5px;
+  font-variation-settings: "wght" 900, "wdth" 100;
+}
+
+p, button {
+  font-size: 1rem;
+  line-height: 1.3rem;
+  letter-spacing: 0px;
+  max-width: 55ch;
+  font-variation-settings: "wght" 200, "wdth" 100;
+  span {
+    font-size: 1.3rem;
+    font-variation-settings: "wght" 900, "wdth" 100;
+  }
+}
+
+p.details {
+  font-size: 0.8rem;
+  line-height: 0.9rem;
+  font-variation-settings: "wght" 800, "wdth" 100;
+  opacity: .3;
+}
+
+p.web,
+button,
+.text.web, 
+.text.web p{
+  font-size: 1.2rem;
+  line-height: 2rem;
+  span {
+    font-size: 1.5rem;
+  }
+}
+
+button {
+  font-variation-settings: "wght" 800, "wdth" 100;
+}

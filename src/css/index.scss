@@ -1,93 +1,10 @@
-$mobile: 360px;
-$phablet: 540px;
-$tablet: 850px;
-$desktop: 1200px;
+@import "./queries";
+@import "./spaces";
+@import "./color";
+@import "./type";
+@import "./elements";
 
-.paragraphs {
-  h1, h2, h3, p {
-    margin: 0 0 2rem;
-  }
-}
-
-html {
-  font-size: clamp(12px, 1vw, 18px);
-}
-
-h1, h2, h3, p.details, button {
-  max-width: 55ch;
-  text-transform: lowercase;
-}
-
-h1 {
-  font-size: 5rem;
-  line-height: 5rem;
-  font-variation-settings: "wght" 900, "wdth" 100;
-}
-
-h2 {
-  font-size: 4rem;
-  line-height: 4rem;
-  font-variation-settings: "wght" 400, "wdth" 100;
-}
-
-h3 {
-  font-size: 3rem;
-  line-height: 3rem;
-  letter-spacing: -0.5px;
-  font-variation-settings: "wght" 900, "wdth" 100;
-}
-
-p, button {
-  font-size: 1rem;
-  line-height: 1.3rem;
-  letter-spacing: 0px;
-  max-width: 55ch;
-  font-variation-settings: "wght" 200, "wdth" 100;
-  span {
-    font-size: 1.3rem;
-    font-variation-settings: "wght" 900, "wdth" 100;
-  }
-}
-
-p.details {
-  font-size: 0.8rem;
-  line-height: 0.9rem;
-  font-variation-settings: "wght" 800, "wdth" 100;
-  opacity: .3;
-}
-
-button {
-  font-variation-settings: "wght" 800, "wdth" 100;
-}
-
-button {
-  cursor: pointer;
-  border-radius: var(--radius);
-  background: var(--flavor);
-  color: var(--background);
-  padding: 0rem 5rem;
-  min-height: 4.5rem;
-  border: none;
-  transition: .4s ease-in-out;
-  &:hover {
-    //letter-spacing: 0.2rem;
-    opacity: .8;
-    transition: .2s ease-in-out;
-  }
-  &:active {
-    letter-spacing: -0.2rem;
-    opacity: .4;
-    transition: .2s ease-in-out;
-  }
-}
-
-p.web,
-button,
-.text.web, 
-.text.web p{
-  font-size: 1.2rem;
-  line-height: 2rem;
-  span {
-    font-size: 1.5rem;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0px;
 }

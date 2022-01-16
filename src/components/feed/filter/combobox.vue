@@ -1,5 +1,5 @@
 <script setup>
-import Multiselect from './multiselect.vue'
+import Multiselect from '../filter/multiselect.vue'
 import '@fortawesome/fontawesome-free/js/all.js';
 import {ref} from "vue"
 

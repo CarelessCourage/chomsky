@@ -1,4 +1,5 @@
 <script setup>
+import Authordot from "../elements/authordot.vue";
 defineProps({
   color: Number
 })
@@ -7,8 +8,8 @@ defineProps({
 <template>
 <div class="node">
   <p class="">Samuel <br> Bednarz</p>
-  <div class="d"></div>
-  <div class="d"></div>
+  <Authordot/>
+  <Authordot/>
 </div>
 </template>
 
@@ -28,16 +29,10 @@ defineProps({
   align-items: center;
 
   overflow: hidden;
-
-  //border: solid 3px var(--background);
-
   transition: .2s ease-in-out;
 
   &:nth-of-type(1) {
     --sound: calc((v-bind(color) / 10) * 1px);
-    .d {
-      background-image: url("../assets/headshot2.jpg");
-    }
   }
 
 
@@ -87,11 +82,6 @@ defineProps({
 .d {
   --size: 3em;
   position: absolute;
-  background: var(--flavor);
-
-  background-image: url("../assets/headshot.jpg");
-  background-size: cover;
-  background-position: center;
 
   opacity: 0.5;
   height: var(--size);
@@ -107,40 +97,4 @@ defineProps({
     transform: translate(calc(0px - var(--sound)), 0px);
   }
 }
-
-.node:nth-of-type(2) .d {
-  background-image: url("../assets/headshot3.jpg");
-}
-
-.node:nth-of-type(3) .d {
-  background-image: url("../assets/headshot4.jpg");
-}
-
-/*.node:nth-of-type(4) .d {
-  background-image: url("../assets/headshot5.jpg");
-}
-
-.node:nth-of-type(5) .d {
-  background-image: url("../assets/headshot6.jpg");
-}
-
-.node:nth-of-type(6) .d {
-  background-image: url("../assets/headshot7.jpg");
-}
-
-.node:nth-of-type(7) .d {
-  background-image: url("../assets/headshot8.jpg");
-}
-
-.node:nth-of-type(8) .d {
-  background-image: url("../assets/headshot9.jpg");
-}
-
-.node:nth-of-type(9) .d {
-  background-image: url("../assets/headshot10.jpg");
-}
-
-.node:nth-of-type(10) .d {
-  background-image: url("../assets/headshot11.jpg");
-}*/
 </style>

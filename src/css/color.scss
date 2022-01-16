@@ -1,0 +1,23 @@
+:root {
+  --background: #f3f6ea;
+  --foreground: #3e505b;
+
+  --flavor: #368f8b;
+  --flavor2: #2CFFE2;
+
+  --success: #6BFFB8;
+  --warnings: #CF4D6F;
+  --gold: #FCCA46;
+
+  --black: #1D1E2C;
+
+  --shade: #fdfff6;
+  --shadedark: #3e505b;
+  --flavor-contrast: var(--background);
+}
+
+html {
+  background: var(--background);
+  color: var(--foreground);
+  filter: invert(90);
+}
