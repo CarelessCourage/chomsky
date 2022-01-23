@@ -1,9 +1,10 @@
 <script setup>
+import Postx from '../../store/post.js'
 import interact, { toggleInteract } from "../../store/interact"
 </script>
 
 <template>
-  <div class="read-layer" :class="{active: interact.toggle}">
+  <div class="read-layer" :class="{active: interact.toggle, open: Postx.toggle}">
     <div class="opacity-layer" @click="toggleInteract(true)">
       <slot></slot>
     </div>

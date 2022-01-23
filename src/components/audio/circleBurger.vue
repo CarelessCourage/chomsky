@@ -70,7 +70,7 @@ watch(volume, (val) => {
   //background-color: blue;
 
   &:hover {
-    background-color: var(--shadedark);
+    background-color: var(--shade00);
     opacity: 0.8 !important;
   }
 
@@ -98,7 +98,7 @@ watch(volume, (val) => {
 
   &:hover {
     border: solid 6px var(--background) !important;
-    background-color: var(--shadedark);
+    background-color: var(--shade00);
   }
 }
 

@@ -34,59 +34,47 @@ defineProps({
   &:nth-of-type(1) {
     --sound: calc((v-bind(color) / 10) * 1px);
   }
+}
 
+.node p {
+  user-select:none;
+  opacity: 0;
+  top: 1rem;
+  left: 1rem;
+  position: absolute; z-index: 20;
+  font-variation-settings: "wght" 800, "wdth" 100;
+  transform: translate(-2em, -0rem);
+  transition: .4s ease-in-out;
+}
 
-  p {
-    user-select:none;
-    opacity: 0;
-    top: 1rem;
-    left: 1rem;
-    position: absolute; z-index: 20;
-    font-variation-settings: "wght" 800, "wdth" 100;
-    transform: translate(-2em, -0rem);
-    transition: .4s ease-in-out;
-  }
-
-  &:hover {
-    --sound: 10px;
-    border: solid 3px var(--background);
-
-    height: 6em;
-    width: 8em;
-
-    p {
-      opacity: 1;
-      transform: translate(-0em, -0rem);
-    }
-    .d {
-      transition: .2s ease-in-out;
-    }
-  }
-  &:active {
-    --sound: 20px;
-    color: var(--foreground);
-    background: var(--background);
-    transition: .2s ease-in-out;
-
-    p {
-      transition: .001s ease-in-out;
-    }
-
-    .d {
-      background-color: red;
-      transition: .1s ease-in-out;
-    }
+.node:hover {
+  --sound: 10px;
+  border: solid 3px var(--background);
+  height: 6em;
+  width: 8em;
+  & p {
+    opacity: 1;
+    transform: translate(-0em, -0rem);
   }
 }
 
-.d {
+.node:active {
+  --sound: 20px;
+  color: var(--foreground);
+  background: var(--background);
+  transition: .2s ease-in-out;
+
+  p {
+    transition: .001s ease-in-out;
+  }
+}
+
+
+.node .dot {
   --size: 3em;
   position: absolute;
-
-  opacity: 0.5;
-  height: var(--size);
-  width: var(--size);
   border-radius: 100%;
+  opacity: 0.5;
 
   transition: .002s ease-in-out;
 

@@ -1,16 +1,15 @@
 <script setup>
-import authordot from "../../elements/authordot.vue";
+import Cell from "./cell.vue";
 </script>
 
 <template>
-  <div class="cell">
+  <Cell>
     <slot></slot>
-    <authordot/>
-  </div>
+  </Cell>
 </template>
 
 <style lang="scss" scoped>
-  .cell {
+  .cellbase {
     grid-column: span 4;
     @media only screen and (max-width: 850px) {
         grid-column: span 2;

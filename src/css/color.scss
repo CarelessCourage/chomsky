@@ -9,10 +9,15 @@
   --warnings: #CF4D6F;
   --gold: #FCCA46;
 
-  --black: #1D1E2C;
+  --dark: #1D1E2C;
+  --light: #f3f6ea;
 
-  --shade: #fdfff6;
-  --shadedark: #3e505b;
+  --shade00: #6B7A7F;
+  --shade50: #99A3A3;
+  --shade99: #C6CDC6;
+
+  --shade: var(--shade99);
+
   --flavor-contrast: var(--background);
 }
 
@@ -20,4 +25,10 @@ html {
   background: var(--background);
   color: var(--foreground);
   filter: invert(90);
+  img, .img {
+    filter: invert(1);
+    &::after {
+      filter: invert(90);
+    }
+  }
 }

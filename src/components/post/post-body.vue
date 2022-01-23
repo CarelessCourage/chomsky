@@ -1,23 +1,19 @@
 <script setup>
-import Postx from '../store/post.js'
-
-import authordot from "./elements/authordot.vue";
+import authordot from "../elements/authordot.vue";
 let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80"
 </script>
 
 <template>
-  <div class="post" :class="{active: Postx.toggle}">
-    <div id="slide" class="page">
-      <div class="abstract">
-        <h1>This is a title</h1>
-      </div>
+  <div id="slide" class="page">
+ 
+    <div class="description">
       <div class="content paragraphs">
         <p><span>In contemporary use,</span> the practice and study of 
           typography include a broad range, covering all aspects of letter 
           design and application, both mechanical (typesetting, type design, 
           and typefaces) and manual (handwriting and calligraphy).
         </p>
-         <p>
+          <p>
           Typography is the work of typesetters (also known as compositors), 
           typographers, graphic designers, art directors, manga artists, 
           comic book artists, and, now, anyone who arranges words, letters, 
@@ -35,143 +31,104 @@ let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb
           materials. 
         </p>
       </div>
-      <div class="authorFixed">
-        <div class="authorWrapper">
-          <div class="image">
-            <p>By Sara Nevile</p>
-            <authordot v-if="true"/>
-          </div>
-        </div>
+    </div>
+
+    <div class="authorFixed" v-if="false">
+      <div class="authorWrapper">
+        <p>By Sara Nevile</p>
+        <authordot v-if="true"/>
       </div>
     </div>
+
   </div>
 </template>
 
 <style lang="scss">
-.post {
-  max-height: 200vh;
-  transition: all 0.4s ease-in-out;
-  &:not(.active) {
-    max-height: 0vh;
-    overflow: hidden;
-  }
-}
-
-@import "../css";
+@import "../../css";
 
 @mixin baseTile {
   background: var(--background);
-  //color: var(--background);
   border-radius: var(--radius);
   width: 100%;
   padding: var(--marginx);
 }
 
-.post .page {
+.post-wrapper .page {
   display: grid;
   gap: var(--margin);
   @media only screen and (min-width: $tablet) {
     grid-template-columns: auto 1fr;
     gap: var(--margin);
-    .abstract {
+    .title {
       grid-column: span 2;
     }
     .authorWrapper {
       top: var(--margin);
       position: sticky;
-      grid-template-columns: 1fr 1fr 1fr;
       height: 15em;
-      .image {
-        grid-column: span 3;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
     }
   }
+}
+
+.authorFixed {
+  grid-column: span 2;
 }
 
 .authorWrapper {
   @include baseTile;
   position: relative;
+  cursor: pointer;
+
   padding: 0px;
   height: 5rem;
   background: var(--background);
-  //margin-bottom: var(--margin);
+
   overflow: hidden;
-  display: grid;
+  display: flex;
   grid-auto-flow: dense;
-  grid-template-columns: 1fr 1fr auto 1fr;
+  justify-content: center;
+  align-items: center;
+
+  p {transform: translateY(4.5em);}
+  .dot {
+    --size: 8em;
+    position: absolute;
+    z-index: -1;
+    transform: translateY(-0.7em);
+  }
 
   @media only screen and (max-width: $phablet) {
     grid-template-columns: 1fr 1fr 1fr;
-    height: 7em;
-    .image {
-      grid-column: span 3;
-    }
-  }
-
-  .button {
-    button {
-      height: 100%;
-      width: 100%;
-      border-radius: 0px;
-      overflow: hidden;
-      * {
-        transition: .4s ease-in-out;
-      }
-      &:hover svg {
-        transform: scale(1);
-        transition: .4s ease-in-out;
-      }
-      &:active svg {
-        transform: scale(2);
-        transition: .1s ease-in-out;
-      }
-    }
-  }
-
-  .image {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    height: 100%;
-    padding-top: 8rem;
-
-    p {
-      transform: translateY(12px);
-    }
-
-    .author {
-      --size: 8em;
-      bottom: 3.5em;
-    }
-
-    /*img {
-      opacity: 0.2;
-      filter: blur(3px);
-      transform: scale(1.1);
-    }
-    svg {
-      z-index: 1;
-      position: absolute;
-      color: var(--foreground);
-      font-size: 50rem;
-      opacity: 0.4;
-    }*/
-  }
-
-  img {
-    width: 100%;
-    //width: 50em;
-    object-fit: cover;
-    //object-position: 0px 130px;
+    height: 17em;
+    position: absolute;
   }
 }
 
-.abstract {
+.authorWrapper:hover {
+  .dot {
+    --size: 27em;
+    transform: translateY(0.7em);
+  }
+}
+
+.button button {
+  height: 100%;
+  width: 100%;
+  border-radius: 0px;
+  overflow: hidden;
+  * {transition: .4s ease-in-out;}
+  &:hover svg {
+    transform: scale(1);
+    transition: .4s ease-in-out;
+  }
+  &:active svg {
+    transform: scale(2);
+    transition: .1s ease-in-out;
+  }
+}
+
+
+.title {
   @include baseTile;
   //margin-bottom: var(--margin);
   min-height: 100px;
@@ -185,17 +142,17 @@ let img = "https://images.unsplash.com/photo-1639321911392-2ba291d62cdf?ixlib=rb
   }
 }
 
+.description {
+  grid-column: span 2;
+  .content {
+    margin: auto;
+  }
+}
+
 .content {
   @include baseTile;
   min-height: 50px;
+  width: max-content;
   padding: var(--marginx) var(--marginx) var(--marginxx);
-}
-
-.post {
-  background: var(--shadedark);
-}
-
-#slide {
-  padding-bottom: var(--marginxx);
 }
 </style>

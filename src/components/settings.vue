@@ -82,7 +82,7 @@ const count = ref(0)
 .title {
   display: grid;
   align-items: end;
-  border-right: black solid 3px;
+  border-right: var(--foreground) solid 3px;
   height: 100%;
   div {
     padding-bottom: var(--marginx);
