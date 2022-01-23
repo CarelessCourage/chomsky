@@ -4,25 +4,33 @@ import { post, pickCell } from '../../store/post.js'
 </script>
 
 <template>
- 
-    <div class="post-head">
-      <Sunrise>
-        <img src="../../assets/headshot18.jpg" alt="">
-      </Sunrise>
+  <div class="post-head">
+    <Sunrise>
+      <img src="../../assets/headshot18.jpg" alt="Profile Image">
+    </Sunrise>
 
+    <div class="wrapper">
       <component :is="pickCell(post.cell.component)">
         <img v-if="post.cell.media" :src="post.cell.media" width="150" :alt="post.cell.text">
         <p v-else>{{post.cell.text}}</p>
       </component>
-
-      <div class="cellbase" v-if="false">
-        {{post.cell.text}}
-      </div>
     </div>
-
+  </div>
 </template>
 
 <style lang="scss">
+.wrapper {
+  position: relative; z-index: 20;
+  margin-bottom: var(--marginxx);
+  margin-top: 13vw; 
+  height: max-content;
+  
+  .cellbase.imgcell {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+}
+
 .sun img {
   position: relative; top: 55%;
   height: 30em; width: 30em;
@@ -31,12 +39,16 @@ import { post, pickCell } from '../../store/post.js'
   object-fit: cover;
 }
 
-.post-head .cellbase {
-  height: max-content;
-  position: absolute;
-  top: 13vw;
-  z-index: 20;
+.post-head .wrapper .cellbase {
+  width: 40em; height: max-content;
+  max-width: 100vw;
+  max-height: 100vw;
   background: var(--background);
+  &:after,
+  &:before {
+    display: none;
+    background: var(--background);
+  }
 }
 
 .post-head {
@@ -44,7 +56,6 @@ import { post, pickCell } from '../../store/post.js'
   justify-content: center;
   position: relative;
   overflow: hidden;
-  height: 60vh;
   grid-column: span 2;
 
   .sunrise {
@@ -52,15 +63,5 @@ import { post, pickCell } from '../../store/post.js'
     bottom: auto;
   }
 }
-
-/*.post-wrapper {
-  max-height: 200vh;
-  //background: var(--shade);
-  transition: all 0.4s ease-in-out;
-  &:not(.active) {
-    max-height: 0vh;
-    overflow: hidden;
-  }
-}*/
 
 </style>
