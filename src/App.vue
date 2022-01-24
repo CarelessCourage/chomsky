@@ -29,7 +29,7 @@ onMounted(() => {
       <PostParent/>
       <PostWrapper>
         <PostHead/>
-        <PostBody v-if="false"/>
+        <PostBody v-if="true"/>
       </PostWrapper>
     </div>
     <PostFeed/>

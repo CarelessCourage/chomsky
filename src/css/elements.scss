@@ -6,21 +6,26 @@
 }
 
 button {
-  cursor: pointer;
-  border-radius: var(--radius);
-  background: var(--flavor);
-  color: var(--background);
-  padding: 0rem 5rem;
-  min-height: 4.5rem;
+  border-radius: 0px;
+  background: var(--shade99);
   border: none;
-  transition: .4s ease-in-out;
+  border-top: solid 3px var(--flavor);
+  border-bottom: solid 0px var(--flavor);
+}
+
+button {
+  cursor: pointer;
+  color: var(--foreground);
+  padding: 0rem 2.5rem;
+  min-height: 3rem;
+  transition: 0.8s ease-in-out;
   &:hover {
-    opacity: .8;
+    background: var(--shade00);
+    border-top: solid 0px var(--flavor);
     transition: .2s ease-in-out;
   }
   &:active {
-    letter-spacing: -0.2rem;
-    opacity: .4;
-    transition: .2s ease-in-out;
+    color: var(--background);
+    background: var(--shade50);
   }
 }
