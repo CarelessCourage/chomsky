@@ -19,7 +19,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 gsap.registerPlugin(ScrollToPlugin);
 
 onMounted(() => {
-  gsap.to(window, 2,{delay: 4, scrollTo:{y:595, ease: "power4.inOut"}});
+  //gsap.to(window, 2,{delay: 4, scrollTo:{y:595, ease: "power4.inOut"}});
 });
 </script>
 
@@ -29,7 +29,7 @@ onMounted(() => {
       <PostParent/>
       <PostWrapper>
         <PostHead/>
-        <PostBody v-if="true"/>
+        <PostBody/>
       </PostWrapper>
     </div>
     <PostFeed/>

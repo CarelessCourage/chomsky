@@ -1,6 +1,6 @@
 import {reactive} from 'vue'
 
-import Cell from '../components/feed/cells/cell.vue'
+import Cell from '../components/feed/cells/cell-base.vue'
 import CellFeature from '../components/feed/cells/cell-feature.vue'
 import CellImage from '../components/feed/cells/cell-image.vue'
 

@@ -1,6 +1,7 @@
 <script setup>
 import Sunrise from "../elements/sunrise.vue"
-import { post, pickCell } from '../../store/post.js'
+import { post } from '../../store/post.js'
+import Cell from "../feed/cells/cell.vue"
 </script>
 
 <template>
@@ -10,10 +11,7 @@ import { post, pickCell } from '../../store/post.js'
     </Sunrise>
 
     <div class="wrapper">
-      <component :is="pickCell(post.cell.component)">
-        <img v-if="post.cell.media" :src="post.cell.media" width="150" :alt="post.cell.text">
-        <p v-else>{{post.cell.text}}</p>
-      </component>
+      <Cell :cell="post.cell" />
     </div>
   </div>
 </template>

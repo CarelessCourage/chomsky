@@ -1,34 +1,26 @@
 <script setup>
-import {
-  useEditor,
-  EditorContent,
-} from '@tiptap/vue-3'
-import StarterKit from '@tiptap/starter-kit'
-import editorMenus from "./editor-menus.vue"
+import TipTap from "./tiptap.vue"
+import feed from "../../store/feed.js"
 
-const editor = useEditor({
-  content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
-  onUpdate({editor}) {
-    console.log(editor.getHTML())
-  },
-  extensions: [
-    StarterKit,
-  ],
-})
+let content = null
 
 function sendCell() {
-  //const html = editor.getHTML()
-  console.log(editor.getHTML())
-  //console.log(html)
+  console.log(content)
+  feed.push({
+    text: content,
+    component: "Cellbase",
+    media: null,
+  })
+}
+
+function TapUpdate(e) {
+  content = e
 }
 </script>
 
 <template>
   <div class="editor-wrapper">
-    <div class="editor" v-if="editor">
-      <editorMenus :editor="editor"/>
-      <editor-content :editor="editor" />
-    </div>
+    <TipTap @change="TapUpdate"/>
     <div class="buttonPanel">
       <button @click="sendCell()">
         <i class="fas fa-paper-plane"></i>
@@ -47,19 +39,6 @@ function sendCell() {
   border-top: dotted 2px var(--flavor);
 }
 
-.editor {
-  padding: var(--marginx);
-}
-
-.textEditor {
-  grid-column: span 2;
-}
-
-.ProseMirror {
-  outline: none;
-  cursor: text;
-}
-
 .editor-wrapper {
   background: var(--background);
   border-radius: var(--radius);
@@ -72,6 +51,10 @@ function sendCell() {
   margin: auto;
   margin-top: -10em;
   gap: var(--margin);
+
+  .editor {
+    padding: var(--marginx);
+  }
 }
 
 .buttonPanel {

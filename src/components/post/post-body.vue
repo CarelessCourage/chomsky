@@ -1,5 +1,4 @@
 <script setup>
-import authordot from "../elements/authordot.vue";
 import TextEditor from "../tiptap/text-editor.vue";
 </script>
 

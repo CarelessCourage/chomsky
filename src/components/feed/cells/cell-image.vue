@@ -1,11 +1,11 @@
 <script setup>
-import Cell from "./cell.vue";
+import Cellbase from "./cell-base.vue";
 </script>
 
 <template>
-  <Cell class="imgcell">
+  <Cellbase class="imgcell">
     <slot></slot>
-  </Cell>
+  </Cellbase>
 </template>
 
 <style lang="scss">
