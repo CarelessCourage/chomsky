@@ -1,7 +1,6 @@
 import {reactive} from 'vue'
 import { gsap } from "gsap";
 
-
 const audio = reactive({
   volume: 0,
 })

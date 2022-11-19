@@ -27,7 +27,6 @@ const activeTab = ref("content")
   align-items: center;
 }
 
-
 .comboBox {
   position: relative;
   margin-bottom: var(--marginxx);
